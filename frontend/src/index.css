@@ -25,14 +25,23 @@ footer{
 
 .navbar .navbar-toggle  {
   color: #ffff;
+  border-color: transparent !important;
 }
 
 .navbar .navbar-nav .nav-link {
   color: #ffff;
 }
 
+
 .product-name{
   font-size: 18px;
   font-weight: 700;
   text-decoration: none;
+}
+
+.product-title{
+  color: #ffff;
+  margin-bottom: 0.2rem;
+  font-weight: 100;
+  font-size: 24px;
 }

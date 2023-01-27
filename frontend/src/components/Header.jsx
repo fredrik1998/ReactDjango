@@ -22,9 +22,13 @@ function Header() {
           className="d-inline-block align-top"
           id='image'
           alt="Darts logo"
-          />DartStore</Navbar.Brand>
+          />DartShop</Navbar.Brand>
         </LinkContainer>
-        <Navbar.Toggle aria-controls="basic-navbar-nav"  />
+        <Navbar.Toggle aria-controls="basic-navbar-nav">
+        <span>
+        <i class="fa-solid fa-bars"></i>
+    </span>
+        </Navbar.Toggle>
         <Navbar.Collapse  id="basic-navbar-nav">
           <Nav className="mr-auto">
             <LinkContainer to='/cart'>

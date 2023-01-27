@@ -7,12 +7,12 @@ import img6 from './images/darts6.jpg'
 const products = [
   {
     'id': '1',
-    'name': 'Winmau Darts Stratos 95/85% Tungsten',
+    'name': 'Winmau Darts Stratos',
     'image': img1,
     'description':
       'Bluetooth technology lets you connect it with compatible devices wirelessly High-quality AAC audio offers immersive listening experience Built-in microphone allows you to take calls while working',
     'brand': 'Winmau',
-    'category': 'Electronics',
+    'category': 'Dart',
     'price': 89.99,
     'countInStock': 10,
     'rating': 4.5,
@@ -20,12 +20,12 @@ const products = [
   },
   {
     'id': '2',
-    'name': 'Winmau Darts Valhalla 95/85% Tungsten',
+    'name': 'Winmau Darts Valhalla',
     'image': img2,
     'description':
       'Introducing the iPhone 11 Pro. A transformative triple-camera system that adds tons of capability without complexity. An unprecedented leap in battery life',
     'brand': 'Apple',
-    'category': 'Electronics',
+    'category': 'Dart',
     'price': 599.99,
     'countInStock': 7,
     'rating': 4.0,
@@ -33,12 +33,12 @@ const products = [
   },
   {
     'id': '3',
-    'name': 'Winmau Darts Vendetta 80% Tungsten',
+    'name': 'Winmau Darts Vendetta',
     'image': img3,
     'description':
       'Characterized by versatile imaging specs, the Canon EOS 80D further clarifies itself using a pair of robust focusing systems and an intuitive design',
     'brand': 'Cannon',
-    'category': 'Electronics',
+    'category': 'Dart',
     'price': 929.99,
     'countInStock': 5,
     'rating': 3,
@@ -46,12 +46,12 @@ const products = [
   },
   {
     'id': '4',
-    'name': 'Winmau Darts Diablo Parallel 90% Tungsten',
+    'name': 'Unicorn Maestro Seigo Asada',
     'image': img4,
     'description':
       'The ultimate home entertainment center starts with PlayStation. Whether you are into gaming, HD movies, television, music',
     'brand': 'Sony',
-    'category': 'Electronics',
+    'category': 'Dart',
     'price': 399.99,
     'countInStock': 11,
     'rating': 5,
@@ -59,12 +59,12 @@ const products = [
   },
   {
     'id': '5',
-    'name': 'Unicorn Maestro Seigo Asada',
+    'name': 'Winmau Darts Diablo Parallel',
     'image': img5,
     'description':
       'Get a better handle on your games with this Logitech LIGHTSYNC gaming mouse. The six programmable buttons allow customization for a smooth playing experience',
     'brand': 'Logitech',
-    'category': 'Electronics',
+    'category': 'Dart',
     'price': 49.99,
     'countInStock': 7,
     'rating': 3.5,
@@ -72,12 +72,12 @@ const products = [
   },
   {
     'id': '6',
-    'name': 'Winmau Darts Sabotage 90% Tungsten',
+    'name': 'Winmau Darts Sabotage',
     'image': img6,
     'description':
       'Meet Echo Dot - Our most popular smart speaker with a fabric design. It is our most compact smart speaker that fits perfectly into small space',
     'brand': 'Amazon',
-    'category': 'Electronics',
+    'category': 'Dart',
     'price': 29.99,
     'countInStock': 0,
     'rating': 4,

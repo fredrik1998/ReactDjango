@@ -2,11 +2,16 @@ import React from 'react'
 import { Card } from 'react-bootstrap'
 import Rating from './Rating';
 import { Link } from 'react-router-dom';
+import { motion} from "framer-motion";
 
 function Product({product}) {
   return (
+    <motion.div
+    initial={{ opacity: 0 }}
+    whileInView={{ opacity: 1 }}
+    viewport={{ once: true }}>
     <Card className='my-3 p-3 rounded'>
-        Product
+        Dart
         <Link to={`/product/${product.id}`}>
             <Card.Img className='card-image' src={product.image}/>
         </Link>
@@ -27,6 +32,7 @@ function Product({product}) {
         </Card.Text>
         </Card.Body>
     </Card>
+    </motion.div>
   )
 }
 

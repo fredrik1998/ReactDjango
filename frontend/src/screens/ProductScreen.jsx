@@ -12,7 +12,7 @@ function ProductScreen() {
   return (
     <Fragment>
     <Header/>
-    <Link to="/" className='btn btn-light my-3'>Go Back</Link>
+    <Link to="/"className='btn btn-light my-3'><i class="fa fa-arrow-left" aria-hidden="true"></i>Go Back</Link>
     <Row>
         <Col md={6}>
         <Image src={product.image} alt={product.name} fluid/>

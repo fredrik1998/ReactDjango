@@ -4,16 +4,28 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { LinkContainer } from 'react-router-bootstrap';
+import logo from '../images/darts.svg'
+import Image from 'react-bootstrap/Image'
 
 function Header() {
   return (
-    <Navbar bg="dark" variant='dark' expand="lg" collapseOnSelect>
+    <Navbar variant='dark' className='navbar' expand="lg" sticky='top' collapseOnSelect>
       <Container>
         <LinkContainer to='/'>
-        <Navbar.Brand>DartStore</Navbar.Brand>
+        <Navbar.Brand>
+          <Image
+          src={logo}
+          style={{color: '#fff'}}
+          width="30"
+          fluid={true}
+          height="30"
+          className="d-inline-block align-top"
+          id='image'
+          alt="Darts logo"
+          />DartStore</Navbar.Brand>
         </LinkContainer>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
+        <Navbar.Toggle aria-controls="basic-navbar-nav"  />
+        <Navbar.Collapse  id="basic-navbar-nav">
           <Nav className="mr-auto">
             <LinkContainer to='/cart'>
             <Nav.Link><i className='fas fa-shopping-cart'></i>Cart</Nav.Link>

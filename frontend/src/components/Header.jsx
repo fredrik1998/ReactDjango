@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useEffect, useState,} from 'react'
+import { useSelector } from 'react-redux';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -8,6 +9,12 @@ import logo from '../images/darts.svg'
 import Image from 'react-bootstrap/Image'
 
 function Header() {
+  const cart = useSelector(state => state.cart)
+  const [cartItemCount, setCartItemCount] = useState(0)
+
+  useEffect(() => {
+    setCartItemCount(cart.cartItems.length)
+  }, [cart.cartItems])
   return (
     <Navbar variant='dark' className='navbar' expand="lg" sticky='top' collapseOnSelect>
       <Container>
@@ -32,7 +39,7 @@ function Header() {
         <Navbar.Collapse  id="basic-navbar-nav">
           <Nav className="mr-auto">
             <LinkContainer to='/cart'>
-            <Nav.Link><i className='fas fa-shopping-cart'></i>Cart</Nav.Link>
+            <Nav.Link><i className='fas fa-shopping-cart'></i>Cart {cartItemCount ? `(${cartItemCount})` : null}</Nav.Link>
             </LinkContainer>
             <LinkContainer to='/login'>
             <Nav.Link><i className='fas fa-user'></i>Login</Nav.Link>   

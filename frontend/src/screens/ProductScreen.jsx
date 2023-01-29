@@ -1,15 +1,25 @@
-import React, { Fragment } from 'react'
-import products from '../products'
+import React, { Fragment, useState, useEffect } from 'react'
 import Header from '../components/Header'
 import { Link } from 'react-router-dom'
 import { Row, Col, Image, ListGroup, Button, Card, ListGroupItem } from 'react-bootstrap'
 import Rating from '../components/Rating'
 import { useParams } from 'react-router-dom'
 import Layout from '../components/layout'
+import axios from 'axios'
 
 function ProductScreen() {
   const { id } = useParams()
-  const product = products.find((p) => p.id == id)
+  const [product, setProduct] = useState([])
+
+  useEffect(() =>{
+    async function fetchProduct(){
+      const {data} = await axios.get(`http://localhost:8000/api/products/${id}`)
+      setProduct(data)
+    }
+    fetchProduct()
+
+  },[])
+  
   return (
     <Layout>
     <Fragment>

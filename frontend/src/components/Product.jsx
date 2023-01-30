@@ -11,7 +11,7 @@ function Product({product}) {
     whileInView={{ opacity: 1 }}
     viewport={{ once: true }}>
     <Card className='my-3 p-3 rounded'>
-        Dart
+        
         <Link to={`/product/${product.id}`}>
             <Card.Img className='card-image' src={product.image}/>
         </Link>

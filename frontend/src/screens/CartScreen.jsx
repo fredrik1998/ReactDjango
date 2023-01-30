@@ -45,7 +45,6 @@ function CartScreen() {
             {cartItems.length === 0 ? (
                 <div>
                 <Message variant='info'>Your cart is empty</Message>
-                <Link to='/'>Go Back</Link>
                 </div>
             ): (
                 <ListGroup variant='flush'>
@@ -62,19 +61,24 @@ function CartScreen() {
                                 ${item.price}   
                                 </Col>
                                 <Col md={3}>
-                                <Form.Control
-                                as="select"
-                                value={item.quantity}
-                                onChange={(e) =>dispatch(addToCart(item.product, Number(e.target.value)))}
-                                >
-                                    {
-                                     [...Array(item.countInStock).keys()].map((x) =>(
-                                        <option key={x + 1} value={x + 1}>
-                                            {x + 1}
-                                        </option>
-                                     ))
-                                    }
-                                </Form.Control>
+                                <div className="d-flex align-items-center">
+  <Button
+    variant="light"
+    onClick={() => item.quantity > 1 && dispatch(addToCart(item.product, item.quantity - 1))}
+    disabled={item.quantity <= 1}
+  >
+    <i class="fa-solid fa-minus"></i>
+  </Button>
+  <p className="text-center mx-3" style={{marginTop: '12px'}}>{item.quantity}</p>
+  <Button
+    variant="light"
+    onClick={() => item.quantity < item.countInStock && dispatch(addToCart(item.product, item.quantity + 1))}
+    disabled={item.quantity >= item.countInStock}
+  >
+    <i class="fa-solid fa-plus"></i>
+  </Button>
+</div>
+
                                 </Col>
                                 <Col md={1}>
                                     <Button 

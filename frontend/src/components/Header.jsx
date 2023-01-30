@@ -13,8 +13,10 @@ function Header() {
   const [cartItemCount, setCartItemCount] = useState(0)
 
   useEffect(() => {
-    setCartItemCount(cart.cartItems.length)
-  }, [cart.cartItems])
+    const totalItems = cart.cartItems.reduce((acc, item) => acc + item.quantity, 0);
+    setCartItemCount(totalItems);
+  }, [cart.cartItems]);
+  
   return (
     <Navbar variant='dark' className='navbar' expand="lg" sticky='top' collapseOnSelect>
       <Container>
@@ -39,7 +41,8 @@ function Header() {
         <Navbar.Collapse  id="basic-navbar-nav">
           <Nav className="mr-auto">
             <LinkContainer to='/cart'>
-            <Nav.Link><i className='fas fa-shopping-cart'></i>Cart {cartItemCount ? `(${cartItemCount})` : null}</Nav.Link>
+            <Nav.Link><i className='fas fa-shopping-cart'></i>{cartItemCount > 0 ? <span className='cart-count'>{cartItemCount}</span> : null}
+</Nav.Link>
             </LinkContainer>
             <LinkContainer to='/login'>
             <Nav.Link><i className='fas fa-user'></i>Login</Nav.Link>   

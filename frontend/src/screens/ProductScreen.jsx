@@ -21,8 +21,6 @@ const [quantity, setQuantity] = useState(1)
   const {loading, error, product} = productDetails
   useEffect(() =>{
     dispatch(displayProductsDetails(id))
-
-   
   },[])
 
   const addToCartHandler = () => {

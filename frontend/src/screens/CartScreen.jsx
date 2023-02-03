@@ -7,6 +7,7 @@ import Loader from '../components/Loader'
 import { addToCart, removeFromCart} from '../actions/cartActions'
 import { Link } from 'react-router-dom'
 import Header from '../components/Header'
+import Layout from '../components/layout'
 
 function CartScreen() {
     const {id} = useParams()
@@ -36,7 +37,7 @@ function CartScreen() {
     
     
   return (
-    <Fragment>
+    <Layout>
     <Header/>
     <Link to="/"className='btn btn-light my-3'><i class="fa fa-arrow-left" aria-hidden="true"></i>Continue Shopping</Link>
     <Row>
@@ -111,7 +112,7 @@ function CartScreen() {
             </Card>
         </Col>
     </Row>
-    </Fragment>
+    </Layout>
   )
 }
 

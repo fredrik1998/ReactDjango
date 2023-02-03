@@ -11,10 +11,13 @@ import Image from 'react-bootstrap/Image'
 import {logout} from '../actions/userActions';
 import NavbarToggle from './NavbarToggle';
 import styled from 'styled-components';
+import {ShoppingCart} from '@styled-icons/typicons/ShoppingCart'
 
 const StyledFormControl = styled(Form.Control)`
  border-radius: 18px;
 `
+const StyledShoppingCart = styled(ShoppingCart)`
+color: #fff`
 
 const Header = ({ updateSearchTerm }) => {
   const [searchTerm, setSearchTerm] = useState("");

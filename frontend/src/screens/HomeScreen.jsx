@@ -6,12 +6,13 @@ import { displayProducts } from "../actions/productActions";
 import Loader from "../components/Loader";
 import Message from "../components/message";
 import Header from "../components/Header";
-
+import Filter from "../components/Filter";
 const HomeScreen = () => {
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
   const { error, loading, products } = productList;
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedFilter, setSelectedFilter] = useState("");
 
   useEffect(() => {
     dispatch(displayProducts(searchTerm));
@@ -21,7 +22,7 @@ const HomeScreen = () => {
     setSearchTerm(newSearchTerm);
   };
 
-  const filteredProducts =
+  let filteredProducts =
     searchTerm === ""
       ? products
       : products.filter((product) => {
@@ -30,9 +31,16 @@ const HomeScreen = () => {
             .includes(searchTerm.toLowerCase());
         });
 
+  if (selectedFilter === "lowest_price") {
+    filteredProducts = filteredProducts.sort((a, b) => a.price - b.price);
+  } else if (selectedFilter === "highest_price") {
+    filteredProducts = filteredProducts.sort((a, b) => b.price - a.price);
+  }
+
   return (
     <div>
       <Header updateSearchTerm={updateSearchTerm} />
+      <Filter selectedFilter={selectedFilter} setSelectedFilter={setSelectedFilter} />
       <h1>Latest Products</h1>
       {loading ? (
         <Loader />
@@ -53,4 +61,4 @@ const HomeScreen = () => {
   );
 };
 
-export default HomeScreen;
+export default HomeScreen

@@ -4,13 +4,20 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import { Form, Button } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import logo from '../images/darts.svg'
 import Image from 'react-bootstrap/Image'
 import {logout} from '../actions/userActions';
 import NavbarToggle from './NavbarToggle';
+import styled from 'styled-components';
 
-function Header() {
+const StyledFormControl = styled(Form.Control)`
+ border-radius: 18px;
+`
+
+const Header = ({ updateSearchTerm }) => {
+  const [searchTerm, setSearchTerm] = useState("");
   const cart = useSelector(state => state.cart)
   const [cartItemCount, setCartItemCount] = useState(0)
   const userLogin = useSelector(state => state.userLogin)
@@ -25,6 +32,11 @@ function Header() {
   const logOutHandler = () => {
     dispatch(logout())
   }
+
+  const handleChange = (event) => {
+    setSearchTerm(event.target.value);
+    updateSearchTerm(event.target.value);
+  };
   
   return (
     <Navbar variant='dark' className='navbar' expand="lg" sticky='top' collapseOnSelect>
@@ -49,6 +61,7 @@ function Header() {
             <Nav.Link><i className='fas fa-shopping-cart'></i>{cartItemCount > 0 ? <span className='cart-count'>{cartItemCount}</span> : null}
 </Nav.Link>
             </LinkContainer>
+           
             {userInfo ? (
               <NavDropdown title={userInfo.name} id='username'>
                 <LinkContainer to='/profile'>
@@ -65,6 +78,16 @@ function Header() {
             <Nav.Link><i className='fas fa-user'></i>Login</Nav.Link>   
             </LinkContainer>
             )}
+             <Form>
+        <Form.Group>
+      <StyledFormControl
+        type="text"
+        placeholder="Search..."
+        value={searchTerm}
+        onChange={handleChange}
+      />
+      </Form.Group>
+    </Form>
           </Nav>
         </Navbar.Collapse>
       </Container>

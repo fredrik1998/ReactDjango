@@ -107,7 +107,7 @@ function CartScreen() {
                     type='button'
                     className='btn-block'
                     disabled={cartItems.length == 0}
-                    onClick={checkoutHandler}>Proceed To Checkout</Button>
+                    onClick={checkoutHandler}><i class="fa-solid fa-truck-fast"></i>Proceed To Checkout</Button>
                 </ListGroup.Item>
             </Card>
         </Col>

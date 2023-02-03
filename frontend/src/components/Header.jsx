@@ -8,6 +8,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 import logo from '../images/darts.svg'
 import Image from 'react-bootstrap/Image'
 import {logout} from '../actions/userActions';
+import NavbarToggle from './NavbarToggle';
 
 function Header() {
   const cart = useSelector(state => state.cart)
@@ -41,11 +42,7 @@ function Header() {
           alt="Darts logo"
           />DartShop</Navbar.Brand>
         </LinkContainer>
-        <Navbar.Toggle aria-controls="basic-navbar-nav">
-        <span>
-        <i class="fa-solid fa-bars"></i>
-    </span>
-        </Navbar.Toggle>
+        <NavbarToggle/>
         <Navbar.Collapse  id="basic-navbar-nav">
           <Nav className="mr-auto">
             <LinkContainer to='/cart'>

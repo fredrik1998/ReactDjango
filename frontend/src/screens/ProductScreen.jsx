@@ -103,7 +103,7 @@ const [quantity, setQuantity] = useState(1)
                         </ListGroup.Item>
                     )}
                     <ListGroup.Item>
-                        <Button onClick={addToCartHandler} className='btn-block' disabled={product.countInStock == 0} type='button'>Add to Cart</Button>
+                        <Button onClick={addToCartHandler} className='btn-block' disabled={product.countInStock == 0} type='button'><i className='fas fa-shopping-cart'></i>Add to Cart</Button>
                     </ListGroup.Item>
                 </ListGroup>
             </Card>

@@ -31,7 +31,7 @@ class UserSerializerWithToken(UserSerializer):
     
     def get_token(self, object):
         token = RefreshToken.for_user(object)
-        return str(token)
+        return str(token.access_token)
 
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:

@@ -4,6 +4,7 @@ import AppPage from './AppPage'
 import CartScreen from './screens/CartScreen'
 import LoginScreen from './screens/LoginScreen'
 import ProductScreen from './screens/ProductScreen'
+import ProfileScreen from './screens/ProfileScreen'
 import RegisterScreen from './screens/RegisterScreen'
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
       <Route path ='/cart/:id?' element={<CartScreen/>}/>
       <Route path ='/login' element={<LoginScreen/>}/>
       <Route path ='/register' element={<RegisterScreen/>}/>
+      <Route path ='/profile' element={<ProfileScreen/>}/>
     </Routes>
   )
 }

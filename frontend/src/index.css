@@ -1,7 +1,9 @@
+
 main{
   min-height: 100vh;
   background-color: #1a1a1a;
 }
+
 
 a:link {
   text-decoration: none;
@@ -79,3 +81,4 @@ h2{
   line-height: 1.5;
   text-align: center;
 }
+

@@ -8,6 +8,11 @@ import { addToCart, removeFromCart} from '../actions/cartActions'
 import { Link } from 'react-router-dom'
 import Header from '../components/Header'
 import Layout from '../components/layout'
+import styled from 'styled-components'
+
+const StyledRow = styled(Row)`
+background-color: #1a1a1a;
+`
 
 function CartScreen() {
     const {id} = useParams()

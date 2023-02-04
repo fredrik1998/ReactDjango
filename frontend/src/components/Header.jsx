@@ -11,15 +11,13 @@ import Image from 'react-bootstrap/Image'
 import {logout} from '../actions/userActions';
 import NavbarToggle from './NavbarToggle';
 import styled from 'styled-components';
-import {ShoppingCart} from '@styled-icons/typicons/ShoppingCart'
+
 
 const StyledFormControl = styled(Form.Control)`
  border-radius: 18px;
 `
-const StyledShoppingCart = styled(ShoppingCart)`
-color: #fff`
-
 const Header = ({ updateSearchTerm }) => {
+  const [location, setLocation] = useState(window.location.pathname);
   const [searchTerm, setSearchTerm] = useState("");
   const cart = useSelector(state => state.cart)
   const [cartItemCount, setCartItemCount] = useState(0)
@@ -81,16 +79,19 @@ const Header = ({ updateSearchTerm }) => {
             <Nav.Link><i className='fas fa-user'></i>Login</Nav.Link>   
             </LinkContainer>
             )}
-             <Form>
-        <Form.Group>
-      <StyledFormControl
-        type="text"
-        placeholder="Search..."
-        value={searchTerm}
-        onChange={handleChange}
-      />
-      </Form.Group>
-    </Form>
+             {location === "/" ? (
+              <Form>
+              <Form.Group>
+            <StyledFormControl
+              type="text"
+              placeholder="Search..."
+              value={searchTerm}
+              onChange={handleChange}
+            />
+            </Form.Group>
+          </Form>
+      ) : null}
+             
           </Nav>
         </Navbar.Collapse>
       </Container>

@@ -10,7 +10,12 @@ import { displayProductsDetails } from '../actions/productActions'
 import Loader from '../components/Loader'
 import Message from '../components/message'
 import { useNavigate } from 'react-router-dom'
+import styled from 'styled-components'
 
+const StyledLink = styled(Link)`
+background-color: #1a1a1a;
+color: #fff;
+`
 
 function ProductScreen() {
 const [quantity, setQuantity] = useState(1)
@@ -43,7 +48,7 @@ const [quantity, setQuantity] = useState(1)
         <Image width={"400px"} height={"400px"} src={product.image} alt={product.name} fluid/>
         </Col>
 
-        <Col md={3}>
+        <Col md={3} className="custom-background">
             <ListGroup variant="flush">
                 <ListGroup.Item>
                     <h3>{product.name}</h3>
@@ -60,7 +65,7 @@ const [quantity, setQuantity] = useState(1)
             </ListGroup>
         </Col>
 
-        <Col md={3}>
+        <Col md={3} className="custom-background">
             <Card>
                 <ListGroup variant='flush'>
                     <ListGroup.Item >

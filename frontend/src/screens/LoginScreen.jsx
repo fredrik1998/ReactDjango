@@ -8,7 +8,27 @@ import { login } from '../actions/userActions'
 import Header from '../components/Header';
 import Layout from '../components/layout';
 import FormContainer from '../components/FormContainer';
+import styled from 'styled-components';
 
+const StyledH1 = styled.h1`
+color: #fff;
+`
+const StyledLink = styled(Link)`
+color: #fff;
+&:hover{
+color: #fff;
+}
+`
+
+const StyledButton = styled(Button)`
+  width: 100%;
+  color: #000;
+  background-color: #52ffa8;
+  box-shadow: 5px #000;
+  padding: 10px;
+  border-radius: 10px;
+  margin-top: 30px;
+`
 function LoginScreen() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -35,10 +55,11 @@ function LoginScreen() {
     },[navigate, userInfo, redirect])
 
   return (
+    <div className='wrapper-login'>
     <Layout>
     <Header/>
     <FormContainer>
-    <h1>Sign in</h1>
+    <StyledH1>Sign in</StyledH1>
     {error && <Message variant='danger'>{error}</Message>}
     {loading && <Loader/>}
     <Form onSubmit={submitHandler}>
@@ -62,18 +83,19 @@ function LoginScreen() {
             ></Form.Control>
         </Form.Group>
 
-        <Button type='submit' variant='primary'>
+        <StyledButton type='submit' variant='primary'>
             Sign In
-        </Button>
+        </StyledButton>
     </Form>    
     <Row className='py-3'>
         <Col>
-        New customer? <Link to={redirect ? `/register?redirect=${redirect}` : '/register'}>Register</Link>
+        New customer? <StyledLink to={redirect ? `/register?redirect=${redirect}` : '/register'}>Register</StyledLink>
         </Col>
 
     </Row>
     </FormContainer>
     </Layout>  
+    </div>
   )
 }
 

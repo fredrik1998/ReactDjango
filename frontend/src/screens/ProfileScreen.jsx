@@ -8,7 +8,23 @@ import {profile, update } from '../actions/userActions'
 import Header from '../components/Header';
 import Layout from '../components/layout';
 import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants';
+import styled from 'styled-components';
 
+const StyledDiv = styled.div`
+background-color: #202020;
+color: #FFF;
+`
+
+const StyledH2 = styled.h2`
+color: #fff;`
+
+const StyledLink = styled(Link)`
+color: #fff;`
+
+const StyledCol = styled(Col)`
+margin-top: 0px
+
+`
 const ProfileScreen = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -59,11 +75,12 @@ const ProfileScreen = () => {
     };
 
   return (
+    <StyledDiv>
     <Layout>
         <Header/>
     <Row>
-        <Col md={3}>
-            <h2>User Profile</h2>
+    <Col md={{ span: 3, offset: 2 }}>
+            <StyledH2>User Profile</StyledH2>
 
             {message && <Message variant='danger'>{message}</Message>}
     {error && <Message variant='danger'>{error}</Message>}
@@ -116,7 +133,7 @@ const ProfileScreen = () => {
         </Button>
         <Row className='py-3'>
         <Col>
-        Already have an account? <Link to={redirect ? `/login?redirect=${redirect}` : '/login'}>Sign in</Link>
+        Already have an account? <StyledLink to={redirect ? `/login?redirect=${redirect}` : '/login'}>Sign in</StyledLink>
         </Col>
 
     </Row>   
@@ -124,11 +141,12 @@ const ProfileScreen = () => {
     </Form>
         </Col>
 
-        <Col md={9}>
-            <h2>My Orders</h2>
+        <Col md={{ span: 3, offset: 2 }}>
+            <StyledH2>My Orders</StyledH2>
         </Col>
     </Row>
     </Layout>
+    </StyledDiv>
   )
 }
 

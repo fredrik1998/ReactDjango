@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Row, Col, Container } from "react-bootstrap";
+import { Row, Col, Container, Button } from "react-bootstrap";
 import Product from "../components/Product";
 import { displayProducts } from "../actions/productActions";
 import Loader from "../components/Loader";
 import Message from "../components/message";
 import Header from "../components/Header";
-import FilterByBrand, { FilterBySize, FilterByCategory} from "../components/Filter";
+import { FilterBySize, FilterByCategory} from "../components/Filter";
 const HomeScreen = () => {
 
   const dispatch = useDispatch();
@@ -30,27 +30,24 @@ const HomeScreen = () => {
   const filterByCategory = (products, category) => {
     return products.filter(product => product.category === category);
   };
-  
 
   let filteredProducts =
-  searchTerm === ""
-    ? products
-    : products.filter((product) => {
-        return product.name
-          .toLowerCase()
-          .includes(searchTerm.toLowerCase());
-      });
+    searchTerm === ""
+      ? products
+      : products.filter((product) => {
+          return product.name
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase());
+        });
 
-if (selectedFilter === "lowest_price") {
-  filteredProducts = filteredProducts.sort((a, b) => a.price - b.price);
-} else if (selectedFilter === "highest_price") {
-  filteredProducts = filteredProducts.sort((a, b) => b.price - a.price);
-} else if (selectedFilter) {
-  filteredProducts = filterByBrand(filteredProducts, selectedFilter);
-} else if(selectedFilter){
-  filteredProducts = filterByCategory(filteredProducts, selectedFilter);
-}
-
+  if (selectedFilter === "lowest_price") {
+    filteredProducts = filteredProducts.sort((a, b) => a.price - b.price);
+  } else if (selectedFilter === "highest_price") {
+    filteredProducts = filteredProducts.sort((a, b) => b.price - a.price);
+  } else if (selectedFilter) {
+    filteredProducts = filterByCategory(filteredProducts, selectedFilter);
+  }
+      
   return (
     <div>
       <Header updateSearchTerm={updateSearchTerm} />
@@ -58,7 +55,6 @@ if (selectedFilter === "lowest_price") {
       <Row xs={2} md={4} lg={6}>
       <Col>
       <FilterBySize selectedFilter={selectedFilter} setSelectedFilter={setSelectedFilter}/>
-      <FilterByBrand products={filteredProducts} setSelectedFilter={setSelectedFilter} />
       <FilterByCategory products={filteredProducts} setSelectedFilter={setSelectedFilter}/>
       </Col>
       </Row>

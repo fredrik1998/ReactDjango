@@ -1,9 +1,15 @@
+:root{
+  background-color: #1a1a1a;
 
+}
+
+html{
+  background-color: #1a1a1a;
+}
 main{
   min-height: 100vh;
   background-color: #1a1a1a;
 }
-
 
 a:link {
   text-decoration: none;
@@ -72,13 +78,21 @@ h2{
   display: inline-block;
   width: 1.5rem;
   height: 1.5rem;
-  background: #e31a13;
-  color: #f5f5f5;
+  background: #52ffa8;
+  color: #000;
   padding: 0.2rem;
   border-radius: 50%;
   letter-spacing: 0;
   font-weight: 500;
   line-height: 1.5;
   text-align: center;
+}
+
+.wrapper-login{
+  background-color: #1a1a1a;
+}
+
+.wrapper-product{
+  background-color: #1a1a1a;
 }
 

@@ -15,6 +15,47 @@ import styled from 'styled-components'
 const StyledLink = styled(Link)`
 background-color: #1a1a1a;
 color: #fff;
+&:hover{
+background-color: #1a1a1a;
+color:#fff;
+}`
+
+const StyledCard = styled(Card)`
+background-color: #1a1a1a;
+color: #fff;
+border: 1px transparent;
+border-radius: 12px;
+`
+const StyledCol = styled(Col)`
+background-color: #1a1a1a;
+color: #fff`
+
+const StyledListGroup = styled(ListGroup)`
+  .list-group-item {
+    background-color: #1a1a1a;
+    color: #fff;
+  }
+`;
+
+const StyledDiv = styled.div`
+background-color: #1a1a1a;
+`
+
+const StyledFormControl = styled(Form)`
+.form-control{
+    background-color: #1a1a1a;
+    width: 100px;
+}
+`
+const Option = styled.option`
+background-color: #2a2a2a;
+color: #fff;`
+
+const StyledButton = styled(Button)`
+background-color: #52ffa8;
+color: #000;
+font-weight: 700;
+border-radius: 18px;
 `
 
 function ProductScreen() {
@@ -33,10 +74,10 @@ const [quantity, setQuantity] = useState(1)
   }
 
   return (
+    <StyledDiv>
     <Layout>
-    <Fragment>
     <Header/>
-    <Link to="/"className='btn btn-light my-3'><i class="fa fa-arrow-left" aria-hidden="true"></i>Go Back</Link>
+    <StyledLink to="/"className='btn btn-light my-3'><i class="fa fa-arrow-left" aria-hidden="true"></i>Go Back</StyledLink>
     {
         loading ?
         <Loader/>
@@ -44,12 +85,12 @@ const [quantity, setQuantity] = useState(1)
         ? <Message variant='danger'>{error}</Message>
         :(
         <Row>
-        <Col md={6}>
+        <StyledCol md={6}>
         <Image width={"400px"} height={"400px"} src={product.image} alt={product.name} fluid/>
-        </Col>
+        </StyledCol>
 
-        <Col md={3} className="custom-background">
-            <ListGroup variant="flush">
+        <StyledCol md={3} className="custom-background">
+            <StyledListGroup color='#000' variant="flush">
                 <ListGroup.Item>
                     <h3>{product.name}</h3>
                 </ListGroup.Item>
@@ -62,12 +103,12 @@ const [quantity, setQuantity] = useState(1)
                 <ListGroup.Item>
                      {product.description}
                 </ListGroup.Item>
-            </ListGroup>
-        </Col>
+            </StyledListGroup>
+        </StyledCol>
 
-        <Col md={3} className="custom-background">
-            <Card>
-                <ListGroup variant='flush'>
+        <StyledCol md={3} className="custom-background">
+            <StyledCard>
+                <StyledListGroup  variant='flush'>
                     <ListGroup.Item >
                         <Row>
                             <Col>Price:</Col>
@@ -89,39 +130,34 @@ const [quantity, setQuantity] = useState(1)
                             <Row>
                                 <Col>Quantity</Col>
                                 <Col xs='auto' className='my-1'>
-                                <Form.Control
+                                <StyledFormControl
                                 as="select"
                                 value={quantity}
                                 onChange={(e) => setQuantity(e.target.value)}
                                 >
                                     {
                                      [...Array(product.countInStock).keys()].map((x) =>(
-                                        <option key={x + 1} value={x + 1}>
+                                        <Option key={x + 1} value={x + 1}>
                                             {x + 1}
-                                        </option>
+                                        </Option>
                                      ))
                                     }
-                                </Form.Control>
+                                </StyledFormControl>
                                 </Col>
                             </Row>
 
                         </ListGroup.Item>
                     )}
                     <ListGroup.Item>
-                        <Button onClick={addToCartHandler} className='btn-block' disabled={product.countInStock == 0} type='button'><i className='fas fa-shopping-cart'></i>Add to Cart</Button>
+                        <StyledButton onClick={addToCartHandler} className='btn-block' disabled={product.countInStock == 0} type='button'><i className='fas fa-shopping-cart'></i>Add to Cart</StyledButton>
                     </ListGroup.Item>
-                </ListGroup>
-            </Card>
-        </Col>
+                </StyledListGroup>
+            </StyledCard>
+        </StyledCol>
     </Row>
     )}
-    
-    </Fragment>
     </Layout>
+    </StyledDiv>
   )
 }
-
- 
- 
-
 export default ProductScreen

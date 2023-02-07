@@ -8,6 +8,9 @@ import { register } from '../actions/userActions'
 import Header from '../components/Header';
 import Layout from '../components/layout';
 import FormContainer from '../components/FormContainer';
+import styled from 'styled-components';
+const StyledLink = styled(Link)`
+color: #fff;`
 
 function RegisterScreen() {
  const [name, setName] = useState('');
@@ -43,6 +46,7 @@ useEffect(()=> {
 },[navigate, userInfo, redirect])
   
   return (
+    <div className='wrapper-login'>
     <Layout>
     <Header/>
     <FormContainer>
@@ -100,7 +104,7 @@ useEffect(()=> {
         </Button>
         <Row className='py-3'>
         <Col>
-        Already have an account? <Link to={redirect ? `/login?redirect=${redirect}` : '/login'}>Sign in</Link>
+        Already have an account? <StyledLink to={redirect ? `/login?redirect=${redirect}` : '/login'}>Sign in</StyledLink>
         </Col>
 
     </Row>   
@@ -108,6 +112,7 @@ useEffect(()=> {
     </Form>
     </FormContainer>
     </Layout>
+    </div>
   )
 }
 

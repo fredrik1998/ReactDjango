@@ -6,7 +6,7 @@ import { displayProducts } from "../actions/productActions";
 import Loader from "../components/Loader";
 import Message from "../components/message";
 import Header from "../components/Header";
-import { FilterBySize, FilterByCategory} from "../components/Filter";
+import { FilterByPrice, FilterByCategory, FilterByBrand} from "../components/Filter";
 const HomeScreen = () => {
 
   const dispatch = useDispatch();
@@ -14,7 +14,7 @@ const HomeScreen = () => {
   const { error, loading, products } = productList;
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedFilter, setSelectedFilter] = useState("");
-  
+ 
   useEffect(() => {
     dispatch(displayProducts(searchTerm));
   }, [searchTerm, dispatch]);
@@ -32,30 +32,49 @@ const HomeScreen = () => {
   };
 
   let filteredProducts =
-    searchTerm === ""
-      ? products
-      : products.filter((product) => {
-          return product.name
-            .toLowerCase()
-            .includes(searchTerm.toLowerCase());
-        });
+  searchTerm === ""
+    ? products
+    : products.filter((product) => {
+        return product.name
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase());
+      });
 
-  if (selectedFilter === "lowest_price") {
-    filteredProducts = filteredProducts.sort((a, b) => a.price - b.price);
-  } else if (selectedFilter === "highest_price") {
-    filteredProducts = filteredProducts.sort((a, b) => b.price - a.price);
-  } else if (selectedFilter) {
-    filteredProducts = filterByCategory(filteredProducts, selectedFilter);
-  }
-      
-  return (
-    <div>
-      <Header updateSearchTerm={updateSearchTerm} />
-      <Container>
-      <Row xs={2} md={4} lg={6}>
-      <Col>
-      <FilterBySize selectedFilter={selectedFilter} setSelectedFilter={setSelectedFilter}/>
-      <FilterByCategory products={filteredProducts} setSelectedFilter={setSelectedFilter}/>
+
+      switch (selectedFilter) {
+        case "lowest_price":
+          filteredProducts = filteredProducts.sort((a, b) => a.price - b.price);
+          break;
+        case "highest_price":
+          filteredProducts = filteredProducts.sort((a, b) => b.price - a.price);
+          break;
+        case "Winmau":
+          filteredProducts = filterByBrand(filteredProducts, selectedFilter);
+          break;
+        case "Unicorn":
+          filteredProducts = filterByBrand(filteredProducts, selectedFilter);
+          break;
+        case "Darts":
+          filteredProducts = filterByCategory(filteredProducts, selectedFilter);
+          break;
+        case "Dartboard":
+          filteredProducts = filterByCategory(filteredProducts, selectedFilter);
+          break;
+        default:
+          break;
+      }
+
+
+return (
+  <div>
+    <Header updateSearchTerm={updateSearchTerm} />
+    <Container>
+    <Row xs={2} md={4} lg={6}>
+    <Col>
+    <FilterByPrice selectedFilter={selectedFilter} setSelectedFilter={setSelectedFilter} />
+    <FilterByCategory products={filteredProducts} setSelectedFilter={setSelectedFilter} />
+    <FilterByBrand products={filteredProducts} setSelectedFilter={setSelectedFilter} />
+    
       </Col>
       </Row>
       </Container>

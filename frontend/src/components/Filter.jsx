@@ -4,13 +4,9 @@ import styled from 'styled-components';
 
 export const StyledNavDropdown = styled(NavDropdown)`
 color: #fff
-
 `
-
-
-export const FilterBySize = ({setSelectedFilter}) => {
+export const FilterByPrice = ({setSelectedFilter}) => {
   const [selectedFilter, setSelectedFilterValue] = useState("");
-  
   return (
   <StyledNavDropdown title='Filter by price'>
   <NavDropdown.Item
@@ -36,25 +32,29 @@ export const FilterBySize = ({setSelectedFilter}) => {
   };
 
 
-  export function FilterByCategory({ products, setSelectedFilter }) {
+  export function FilterByCategory({setSelectedFilter }) {
     const [selectedCategory, setSelectedCategory] = useState("");
-  
-    const categories = Array.from(new Set(products.map((p) => p.category)));
-  
     return (
       <StyledNavDropdown title="Filter by category">
-        {categories.map((category) => (
           <NavDropdown.Item
-            key={category}
             onClick={() => {
-              setSelectedFilter(category);
-              setSelectedCategory(category);
+              setSelectedFilter("Winmau");
+              setSelectedCategory("Winmau");
             }}
-            disabled={selectedCategory === category}
+            disabled={selectedCategory === "Winmau"}
           >
-            {category}
+            Winmau
           </NavDropdown.Item>
-        ))}
+          <NavDropdown.Item
+           
+            onClick={() => {
+              setSelectedFilter("Unicorn");
+              setSelectedCategory("Unicorn");
+            }}
+            disabled={selectedCategory === "Unicorn"}
+          >
+            Unicorn
+          </NavDropdown.Item>
         <NavDropdown.Divider />
         <NavDropdown.Item
           key="remove-filter"
@@ -69,6 +69,45 @@ export const FilterBySize = ({setSelectedFilter}) => {
       </StyledNavDropdown>
     );
   }
+  
+  export function FilterByBrand({  setSelectedFilter }) {
+    const [selectedBrand, setSelectedBrand] = useState("");
+  
+    return (
+      <StyledNavDropdown title="Filter by brand">
+          <NavDropdown.Item
+            onClick={() => {
+              setSelectedFilter("Darts");
+              setSelectedBrand("Darts");
+            }}
+            disabled={selectedBrand === "Darts"}
+          >
+           Darts
+          </NavDropdown.Item>
+          <NavDropdown.Item
+            onClick={() => {
+              setSelectedFilter("Dartboard");
+              setSelectedBrand("Dartboard");
+            }}
+            disabled={selectedBrand === "Dartboard"}
+          >
+           Dartboard
+          </NavDropdown.Item>
+        <NavDropdown.Divider />
+        <NavDropdown.Item
+          key="remove-filter"
+          onClick={() => {
+            setSelectedFilter("");
+            setSelectedBrand("");
+          }}
+          disabled={selectedBrand === ""}
+        >
+          Remove filter
+        </NavDropdown.Item>
+      </StyledNavDropdown>
+    );
+  }
+  
   
 
   

@@ -79,7 +79,7 @@ const ProfileScreen = () => {
     <Layout>
         <Header/>
     <Row>
-    <Col md={{ span: 3, offset: 2 }}>
+    <Col md={{ span: 3, offset: 2  }}>
             <StyledH2>User Profile</StyledH2>
 
             {message && <Message variant='danger'>{message}</Message>}

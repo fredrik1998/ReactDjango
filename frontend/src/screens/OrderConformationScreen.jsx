@@ -1,5 +1,5 @@
 import React,{useState, useEffect} from 'react'
-import { Link, redirect, useNavigate, useLocation } from 'react-router-dom';
+import { Link, redirect, useNavigate, useLocation, useParams} from 'react-router-dom';
 import { useDispatch, useSelector} from 'react-redux';
 import {Form, Button, FormGroup, ListGroup, Row, Col, ListGroupItem, Image, Container, Card} from 'react-bootstrap'
 import { saveShippingAddress} from '../actions/cartActions';
@@ -7,10 +7,10 @@ import Header from '../components/Header';
 import Layout from '../components/layout';
 import FormContainer from '../components/FormContainer';
 import styled from 'styled-components';
-import CheckoutSteps from '../components/CheckoutSteps';
 import Message from '../components/message';
-import {createOrder} from '../actions/orderActions'
-import { ORDER_CREATE_RESET } from '../constants/orderConstants';
+import Loader from '../components/Loader';
+import {getOrderDetails} from '../actions/orderActions'
+
 
 const StyledLink = styled(Link)`
 color: #FFF;
@@ -23,7 +23,7 @@ const OrderContainer = styled.div`
 background-color:#1a1a1a;
 `
 const StyledListGroup = styled(ListGroup)`
-
+color: #fff;
   .list-group-item {
     background-color: #1a1a1a;
     color: #fff;
@@ -31,7 +31,14 @@ const StyledListGroup = styled(ListGroup)`
 `;
 
 const StyledH2 = styled.h2`
-margin-top: 3rem;`
+margin-top: 3rem;
+color: #fff;`
+
+const StyledH1 = styled.h1`
+margin-top: 3rem;
+color: #fff;
+padding: 10px;
+`
 
 const StyledCol = styled(Col)`
 
@@ -50,71 +57,67 @@ border-radius: 10px;
 margin-top: 30px;
 `
 
-const OrderScreen = () => {
-  const orderCreate = useSelector(state => state.orderCreate)
-  const {order, error, success} = orderCreate
+const OrderConformationScreen = () => {
+  const { orderId } = useParams()
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const cart = useSelector(state => state.cart)
-
-  cart.itemsPrice = cart.cartItems.reduce((acc, items) => acc + items.price * items.quantity, 0).toFixed(2)
-  cart.shippingPrice = (cart.itemsPrice > 100 ? 0 : 10).toFixed(2)
-  cart.totalPrice = (Number(cart.itemsPrice) + Number(cart.shippingPrice)).toFixed(2)
-
-  if(!cart.paymentMethod){
-    navigate('/payment')
-    dispatch({type: ORDER_CREATE_RESET})
+  const orderDetails = useSelector(state => state.orderDetails)
+  const {order, error, loading} = orderDetails
+  if(!loading && !error){
+    order.itemsPrice = order.orderItems.reduce((acc, item) => acc + item.price * item.quantity, 0).toFixed(2)
+    order.shippingPrice = (order.itemsPrice > 100 ? 0 : 10).toFixed(2)
+    order.totalPrice = (Number(order.itemsPrice) + Number(order.shippingPrice)).toFixed(2)
   }
 
   useEffect(() =>{
-    if(success){
-      navigate(`/order/${order.id}`)
-      
-    }
-  },[success, navigate])
+    if(!order || order.id !== Number(orderId)){
+        dispatch(getOrderDetails(orderId))
+        console.log(orderId)
 
-  const placeOrder = () =>{
-    dispatch(createOrder({
-      orderItems: cart.cartItems,
-      shippingAddress : cart.shippingAddress,
-      paymentMethod: cart.paymentMethod,
-      itemsPrice: cart.itemsPrice,
-      shippingPrice: cart.shippingAddress,
-      totalPrice: cart.totalPrice
-    }))
-  }
-  return (
+    }
+  },[order, orderId, dispatch])
+  return loading ?(
+    <Loader/>
+  ): error ? (
+    <Message variant='danger'>{error}</Message>
+  ) : (
     <OrderContainer>
     <Layout>
         <Header/>
-        <FormContainer>
-          <CheckoutSteps step2 step3 step4/>
-          </FormContainer>
           <Row>
             <Col md={8}>
+            <StyledH1>Order:{order.id}</StyledH1>
               <StyledListGroup variant='flush'>
                 <ListGroup.Item>
                   <StyledH2>Shipping</StyledH2>
+                  <p><strong>Name: </strong>{order.user.name}</p>
+                  <p><strong>Email: </strong><a style={{color:'#FFF'}} href={`mailto:${order.user.email}`}>{order.user.email}</a></p>
                   <p>
             
-                    {cart.shippingAddress.address}, {cart.shippingAddress.city}, {" "}
-                    {cart.shippingAddress.postalCode}, {cart.shippingAddress.country}
+                    {order.shippingAddress.address}, {order.shippingAddress.city}, {" "}
+                    {order.shippingAddress.postalCode}, {order.shippingAddress.country}
                   </p>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <StyledH2>Payment Method</StyledH2>
                   <p>
                     <strong>Method: </strong>
-                    {cart.paymentMethod}
+                    {order.paymentMethod}
                   </p>
+                  {order.isPaid ? (
+                    <Message variant='success'>Paid on {order.paidAt}</Message>
+                  ) : (
+                    <Message variant='warning'>Not Paid</Message>
+                  )}
                 </ListGroup.Item>
               </StyledListGroup>
               <ListGroup.Item>
                   <StyledH2 style={{color:'#FFF'}}>Order Items</StyledH2>
-                  {cart.cartItems.length === 0 ? <Message variant='info'>
-                    You have no items in cart</Message> : (
+                  {order.orderItems.length === 0 ? <Message variant='info'>
+                    Order empty</Message> : (
                       <StyledListGroup variant='flush'>
-                        {cart.cartItems.map((item, index) =>(
+                        {order.orderItems.map((item, index) =>(
                           <ListGroup.Item key={index}>
                             <Row > 
                               <Col md={1}>
@@ -144,14 +147,14 @@ const OrderScreen = () => {
                   <ListGroup.Item>
                     <Row>
                       <Col>Items:</Col>
-                      <Col>${cart.itemsPrice}</Col>
+                      <Col>${order.itemsPrice}</Col>
                     </Row>
                   </ListGroup.Item>
 
                   <ListGroup.Item>
                     <Row>
                       <Col>Shipping:</Col>
-                      <Col>${cart.shippingPrice}</Col>
+                      <Col>${order.shippingPrice}</Col>
                     </Row>
                   </ListGroup.Item>
 
@@ -159,23 +162,10 @@ const OrderScreen = () => {
                   <ListGroup.Item>
                     <Row>
                       <Col>Total Price:</Col>
-                      <Col>${cart.totalPrice}</Col>
+                      <Col>${order.totalPrice}</Col>
                     </Row>
                   </ListGroup.Item>
-
                   <ListGroup.Item>
-                    {error && <Message variant='danger'>{error}</Message>}
-
-                  </ListGroup.Item>
-
-                  <ListGroup.Item>
-                    <StyledButton 
-                    type='button'
-                    variant='primary'
-                    className='btn-block'
-                    disabled={cart.cartItems === 0}
-                    onClick={placeOrder}
-                    >Place Order</StyledButton>
                   </ListGroup.Item>
                 </StyledListGroup>
               </StyledCard>
@@ -186,4 +176,4 @@ const OrderScreen = () => {
   )
 }
 
-export default OrderScreen
+export default OrderConformationScreen

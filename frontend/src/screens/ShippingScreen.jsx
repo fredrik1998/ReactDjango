@@ -79,10 +79,9 @@ const ShippingScreen = () => {
             ></Form.Control>
         </Form.Group>
 
-        <Form.Group controlId='postalcode'>
+        <Form.Group controlId='postalCode'>
             <Form.Label>Postal code</Form.Label>
             <Form.Control 
-            required
             type='text'
             placeholder='Enter Postalcode'
             value={postalCode ? postalCode : ''}

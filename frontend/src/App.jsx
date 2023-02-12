@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom'
 import AppPage from './AppPage'
 import CartScreen from './screens/CartScreen'
 import LoginScreen from './screens/LoginScreen'
+import OrderConformationScreen from './screens/OrderConformationScreen'
 import OrderScreen from './screens/OrderScreen'
 import PaymentScreen from './screens/PaymentScreen'
 import ProductScreen from './screens/ProductScreen'
@@ -22,6 +23,7 @@ function App() {
       <Route path ='/login/shipping' element={<ShippingScreen/>}/>
       <Route path ='/payment' element={<PaymentScreen/>}/>
       <Route path ='/placeorder' element={<OrderScreen/>}/>
+      <Route path='/order/:orderId'element={<OrderConformationScreen/>}/>
     </Routes>
   )
 }

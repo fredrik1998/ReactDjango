@@ -25,12 +25,12 @@ def addOrderItems(request):
     else:
 
         # (1) Create order
-
+    
         order = Order.objects.create(
             user=user,
             paymentMethod=data['paymentMethod'],
-            #shippingPrice=data['shippingPrice'],
-            #totalPrice=data['totalPrice']
+            shippingPrice=data['shippingPrice'],
+            totalPrice=data['totalPrice']
         )
 
 
@@ -44,7 +44,7 @@ def addOrderItems(request):
             country=data['shippingAddress']['country'],
         )
 
-        # (3) Create order items adn set order to orderItem relationship
+        # (3) Create order items and set order to orderItem relationship
         for i in orderItems:
             product = Product.objects.get(id=i['product'])
 
@@ -66,18 +66,18 @@ def addOrderItems(request):
         serializer = OrderSerializer(order, many=False)
         return Response(serializer.data)
 
+
+
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def getOrderByID(request, pk):
- try:
-    user = request.user
-    order = Order.objects.get(id=pk)
-    if user.is_staff or order.user == user:
-        serializer = OrderSerializer(order, many=False)
-        return Response(serializer.data)
-    else:
-        Response({'detail':'Not authorized to view this order'}, status=status.HTTP_400_BAD_REQUEST) 
- except:
-    return Response({'detail':'Order does not exist'}, status=status.HTTP_400_BAD_REQUEST)        
-
-
+    try:
+        user = request.user
+        order = Order.objects.get(id=pk)
+        if user.is_staff or order.user == user:
+            serializer = OrderSerializer(order, many=False)
+            return Response(serializer.data)
+        else:
+            return Response({'detail':'Not authorized to view this order'}, status=status.HTTP_400_BAD_REQUEST) 
+    except Order.DoesNotExist:
+        return Response({'detail':'Order does not exist'})

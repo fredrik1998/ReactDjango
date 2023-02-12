@@ -11,6 +11,7 @@ import Image from 'react-bootstrap/Image'
 import {logout} from '../actions/userActions';
 import NavbarToggle from './NavbarToggle';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 
 const StyledFormControl = styled(Form.Control)`
@@ -24,6 +25,7 @@ const Header = ({ updateSearchTerm }) => {
   const userLogin = useSelector(state => state.userLogin)
   const {userInfo} = userLogin
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   useEffect(() => {
     const totalItems = cart.cartItems.reduce((acc, item) => acc + item.quantity, 0);
@@ -32,6 +34,7 @@ const Header = ({ updateSearchTerm }) => {
 
   const logOutHandler = () => {
     dispatch(logout())
+    navigate('/')
   }
 
   const handleChange = (event) => {

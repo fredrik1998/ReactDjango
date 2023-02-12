@@ -31,6 +31,7 @@ const ProfileScreen = () => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [message, setMessage] = useState('');
+    const [successMessage, setSuccessMessage] = useState('')
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
@@ -45,16 +46,23 @@ const ProfileScreen = () => {
 
     useEffect(() => {
         if (!user) {
+            setSuccessMessage('User updated successfully!');
             navigate('/login');
         } else {
             if (!user || user.name || success) {
                 dispatch({ type: USER_UPDATE_PROFILE_RESET });
-                dispatch(profile('profile'));
+            
             } else {
                 setName(user.name);
                 setEmail(user.email);
-
             }
+
+            if (success) {
+                setMessage('Updated Successfully');
+                setTimeout(() => {
+                  navigate('/');
+                }, 2000);
+              }
         }
     }, [user, success, navigate, dispatch, userInfo]);
 
@@ -82,7 +90,7 @@ const ProfileScreen = () => {
     <Col md={{ span: 3, offset: 2  }}>
             <StyledH2>User Profile</StyledH2>
 
-            {message && <Message variant='danger'>{message}</Message>}
+            {message && <Message variant='success'>{message}</Message>}
     {error && <Message variant='danger'>{error}</Message>}
     {loading && <Loader/>}
     <Form onSubmit={submitHandler}>

@@ -12,6 +12,33 @@ import styled from 'styled-components';
 const StyledLink = styled(Link)`
 color: #fff;`
 
+const StyledButton = styled(Button)`
+width: 100%;
+background: none;
+border: 4px solid;
+color: #52ffa8;
+font-weight: 700;
+
+text-transform: uppercase;
+cursor: pointer;
+font-size: 13px;
+position: relative;
+margin-top: 30px;
+@media only screen and (max-width: 767px) {
+  width: 75%;
+  margin: 0 auto 30px auto;
+}
+&:hover:before {
+  left: 80%;
+}
+&:hover:after {
+  right: 80%;
+}
+&:hover {
+  background: #52ffa8;
+  color: #000;
+}`;
+
 function RegisterScreen() {
  const [name, setName] = useState('');
 const [email, setEmail] = useState('');
@@ -50,7 +77,7 @@ useEffect(()=> {
     <Layout>
     <Header/>
     <FormContainer>
-    <h1>Sign in</h1>
+    <h1 style={{color: '#FFF'}}>Register</h1>
     {message && <Message variant='danger'>{message}</Message>}
     {error && <Message variant='danger'>{error}</Message>}
     {loading && <Loader/>}
@@ -99,9 +126,9 @@ useEffect(()=> {
             onChange={(e) => setConfirmPassword(e.target.value)}
             ></Form.Control>
         </Form.Group>                
-        <Button type='submit' variant='primary'>
+        <StyledButton type='submit' variant='primary'>
             Sign up
-        </Button>
+        </StyledButton>
         <Row className='py-3'>
         <Col>
         Already have an account? <StyledLink to={redirect ? `/login?redirect=${redirect}` : '/login'}>Sign in</StyledLink>

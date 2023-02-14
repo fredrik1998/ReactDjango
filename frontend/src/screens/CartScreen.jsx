@@ -33,13 +33,29 @@ const StyledListGroup = styled(ListGroup)`
 
 const CheckoutButton = styled(Button)`
 width: 100%;
+background: none;
+border: 4px solid;
+color: #52ffa8;
+font-weight: 700;
+text-transform: uppercase;
+cursor: pointer;
+font-size: 13px;
+position: relative;
+margin-top: 30px;
+@media only screen and (max-width: 767px) {
+  width: 75%;
+  margin: 0 auto 30px auto;
+}
+&:hover:before {
+  left: 80%;
+}
+&:hover:after {
+  right: 80%;
+}
+&:hover {
+  background: #52ffa8;
   color: #000;
-  background-color: #52ffa8;
-  box-shadow: 5px #000;
-  padding: 10px;
-  border-radius: 10px;
-  margin-top: 30px;
-`
+}`;
 
 const CartButton = styled(Button)`
   padding: 10px;

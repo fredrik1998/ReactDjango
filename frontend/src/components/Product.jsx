@@ -22,6 +22,7 @@ function Product({product}) {
   return (
     <motion.div
     initial={{ opacity: 0 }}
+    whileHover={{scale: 1.05}}
     whileInView={{ opacity: 1 }}
     viewport={{ once: true }}>
     <StyledCard className='my-3 p-3 rounded'>

@@ -6,7 +6,14 @@ import { displayProducts } from "../actions/productActions";
 import Loader from "../components/Loader";
 import Message from "../components/message";
 import Header from "../components/Header";
-import { FilterByPrice, FilterByCategory, FilterByBrand} from "../components/Filter";
+import ProductCarousel from "../components/ProductCarousel";
+import { FilterByPrice, FilterByCategory, FilterByBrand, FilterByRating} from "../components/Filter";
+import styled from 'styled-components'
+
+const StyledDiv = styled.div`
+display: flex;
+flex-direction:
+`
 const HomeScreen = () => {
 
   const dispatch = useDispatch();
@@ -48,6 +55,12 @@ const HomeScreen = () => {
         case "highest_price":
           filteredProducts = filteredProducts.sort((a, b) => b.price - a.price);
           break;
+        case "lowest_rating":
+          filteredProducts = filteredProducts.sort((a, b) => a.rating - b.rating); 
+          break;
+        case "highest_rating":
+          filteredProducts = filteredProducts.sort((a, b) => b.rating - a.rating);
+          break;
         case "Winmau":
           filteredProducts = filterByBrand(filteredProducts, selectedFilter);
           break;
@@ -68,17 +81,36 @@ const HomeScreen = () => {
 return (
   <div>
     <Header updateSearchTerm={updateSearchTerm} />
+    {searchTerm.length === 0 && (
+        <>
+          <h2 style={{ color: "#FFF" }}>Filters</h2>
+          <StyledDiv>
+            <FilterByPrice
+              selectedFilter={selectedFilter}
+              setSelectedFilter={setSelectedFilter}
+            />
+            <FilterByCategory
+              products={filteredProducts}
+              setSelectedFilter={setSelectedFilter}
+            />
+            <FilterByBrand
+              products={filteredProducts}
+              setSelectedFilter={setSelectedFilter}
+            />
+            <FilterByRating
+            selectedFilter={selectedFilter}
+            setSelectedFilter={setSelectedFilter}
+            />
+          </StyledDiv>
+        </>
+      )}
     <Container>
     <Row xs={2} md={4} lg={6}>
     <Col>
-    <FilterByPrice selectedFilter={selectedFilter} setSelectedFilter={setSelectedFilter} />
-    <FilterByCategory products={filteredProducts} setSelectedFilter={setSelectedFilter} />
-    <FilterByBrand products={filteredProducts} setSelectedFilter={setSelectedFilter} />
-    
+  
       </Col>
       </Row>
-      </Container>
-      <h1>Latest Products</h1>
+     </Container>
       {loading ? (
         <Loader />
       ) : error ? (

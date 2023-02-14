@@ -42,13 +42,30 @@ margin-top: 50px;`
 
 const StyledButton = styled(Button)`
 width: 100%;
-color: #000;
-background-color: #52ffa8;
-box-shadow: 5px #000;
-padding: 10px;
-border-radius: 10px;
+background: none;
+border: 4px solid;
+color: #52ffa8;
+font-weight: 700;
+
+text-transform: uppercase;
+cursor: pointer;
+font-size: 13px;
+position: relative;
 margin-top: 30px;
-`
+@media only screen and (max-width: 767px) {
+  width: 75%;
+  margin: 0 auto 30px auto;
+}
+&:hover:before {
+  left: 80%;
+}
+&:hover:after {
+  right: 80%;
+}
+&:hover {
+  background: #52ffa8;
+  color: #000;
+}`;
 
 const OrderScreen = () => {
   const orderCreate = useSelector(state => state.orderCreate)
@@ -57,10 +74,9 @@ const OrderScreen = () => {
   const navigate = useNavigate()
   const cart = useSelector(state => state.cart)
 
-  cart.itemsPrice = cart.cartItems.reduce((acc, items) => acc + items.price * items.quantity, 0).toFixed(2)
-  cart.shippingPrice = (cart.itemsPrice > 100 ? 0 : 10).toFixed(2)
-  cart.totalPrice = (Number(cart.itemsPrice) + Number(cart.shippingPrice)).toFixed(2)
-
+  cart.itemsPrice = cart.cartItems.reduce((acc, items) => acc + items.price * items.quantity, 0);
+  cart.shippingPrice = (cart.itemsPrice > 100 ? 0 : 10);
+  cart.totalPrice = Number(cart.itemsPrice + cart.shippingPrice).toFixed(2);
   if(!cart.paymentMethod){
     navigate('/payment')
     dispatch({type: ORDER_CREATE_RESET})
@@ -79,7 +95,7 @@ const OrderScreen = () => {
       shippingAddress : cart.shippingAddress,
       paymentMethod: cart.paymentMethod,
       itemsPrice: cart.itemsPrice,
-      shippingPrice: cart.shippingAddress,
+      shippingPrice: cart.shippingPrice,
       totalPrice: cart.totalPrice
     }))
   }
@@ -144,14 +160,14 @@ const OrderScreen = () => {
                   <ListGroup.Item>
                     <Row>
                       <Col>Items:</Col>
-                      <Col>${cart.itemsPrice}</Col>
+                      <Col>${cart.itemsPrice.toFixed(2)}</Col>
                     </Row>
                   </ListGroup.Item>
 
                   <ListGroup.Item>
                     <Row>
                       <Col>Shipping:</Col>
-                      <Col>${cart.shippingPrice}</Col>
+                      <Col>${cart.shippingPrice.toFixed(2)}</Col>
                     </Row>
                   </ListGroup.Item>
 

@@ -75,22 +75,18 @@ const OrderConformationScreen = () => {
   const cart = useSelector(state => state.cart)
   const orderDetails = useSelector(state => state.orderDetails)
   const {order, error, loading} = orderDetails
-  if(!loading && !error){
-    order.itemsPrice = order.orderItems.reduce((acc, item) => acc + item.price * item.quantity, 0).toFixed(2)
-    order.shippingPrice = (order.itemsPrice > 100 ? 0 : 10).toFixed(2)
-    order.totalPrice = (Number(order.itemsPrice) + Number(order.shippingPrice)).toFixed(2)
-  }
 
   useEffect(() =>{
-    if(!order || order.id !== Number(orderId)){
-        dispatch(getOrderDetails(orderId))
-        console.log(orderId)
+    dispatch(getOrderDetails(orderId))
+  },[orderId, dispatch])
 
-    }
-  },[order, orderId, dispatch])
+  const itemsPrice = order ? order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0).toFixed(2) : 0
+  const shippingPrice = order && itemsPrice > 100 ? 0 : 10
+  const totalPrice = order ? (Number(itemsPrice) + Number(shippingPrice)).toFixed(2) : 0
+
   return loading ?(
     <Loader/>
-  ): error ? (
+  ) : error ? (
     <Message variant='danger'>{error}</Message>
   ) : (
     <OrderContainer>
@@ -138,7 +134,7 @@ const OrderConformationScreen = () => {
                               <StyledLink to={`/product/${item.product}`}>{item.name}</StyledLink>
                               </Col>
                               <Col md={6}>
-                                {item.quantity} X ${item.price} = ${(item.quantity *  item.price).toFixed(2)}
+                                {item.qty} X ${item.price} = ${(item.qty *  item.price).toFixed(2)}
                               </Col>
                             </Row>
                           </ListGroup.Item>

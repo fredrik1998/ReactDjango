@@ -5,37 +5,63 @@ import styled from 'styled-components';
 export const StyledNavDropdown = styled(NavDropdown)`
 color: #fff
 `
-export const FilterByPrice = ({setSelectedFilter}) => {
+export const FilterByRating = ({setSelectedFilter}) => {
   const [selectedFilter, setSelectedFilterValue] = useState("");
   return (
-  <StyledNavDropdown title='Filter by price'>
+  <StyledNavDropdown title='Rating'>
   <NavDropdown.Item
   onClick={() => {
-  setSelectedFilter("lowest_price");
-  setSelectedFilterValue("lowest_price");
+  setSelectedFilter("lowest_rating");
+  setSelectedFilterValue("lowest_rating");
   }}
-  disabled={selectedFilter === "lowest_price"}
+  disabled={selectedFilter === "lowest_rating"}
   >
-  Lowest Price
+  Lowest Rating
   </NavDropdown.Item>
   <NavDropdown.Item
   onClick={() => {
-  setSelectedFilter("highest_price");
-  setSelectedFilterValue("highest_price");
+  setSelectedFilter("highest_rating");
+  setSelectedFilterValue("highest_rating");
   }}
-  disabled={selectedFilter === "highest_price"}
+  disabled={selectedFilter === "highest_rating"}
   >
-  Highest Price
+  Highest Rating
   </NavDropdown.Item>
   </StyledNavDropdown>
   );
   };
 
+  export const FilterByPrice = ({setSelectedFilter}) => {
+    const [selectedFilter, setSelectedFilterValue] = useState("");
+    return (
+    <StyledNavDropdown title='Price'>
+    <NavDropdown.Item
+    onClick={() => {
+    setSelectedFilter("lowest_price");
+    setSelectedFilterValue("lowest_price");
+    }}
+    disabled={selectedFilter === "lowest_price"}
+    >
+    Lowest Price
+    </NavDropdown.Item>
+    <NavDropdown.Item
+    onClick={() => {
+    setSelectedFilter("highest_price");
+    setSelectedFilterValue("highest_price");
+    }}
+    disabled={selectedFilter === "highest_price"}
+    >
+    Highest Price
+    </NavDropdown.Item>
+    </StyledNavDropdown>
+    );
+    };
 
-  export function FilterByCategory({setSelectedFilter }) {
+
+  export const FilterByCategory = ({setSelectedFilter }) => {
     const [selectedCategory, setSelectedCategory] = useState("");
     return (
-      <StyledNavDropdown title="Filter by category">
+      <StyledNavDropdown title="Brand">
           <NavDropdown.Item
             onClick={() => {
               setSelectedFilter("Winmau");
@@ -70,11 +96,11 @@ export const FilterByPrice = ({setSelectedFilter}) => {
     );
   }
   
-  export function FilterByBrand({  setSelectedFilter }) {
+  export const FilterByBrand = ({setSelectedFilter }) => {
     const [selectedBrand, setSelectedBrand] = useState("");
   
     return (
-      <StyledNavDropdown title="Filter by brand">
+      <StyledNavDropdown title="Category">
           <NavDropdown.Item
             onClick={() => {
               setSelectedFilter("Darts");

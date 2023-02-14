@@ -6,6 +6,7 @@
 html{
   background-color: #1a1a1a;
 }
+
 main{
   min-height: 100vh;
   background-color: #1a1a1a;
@@ -95,4 +96,28 @@ h2{
 .wrapper-product{
   background-color: #1a1a1a;
 }
+
+.next,
+.prev {
+  top: calc(100% - 100x);
+  position: absolute;
+  background: white;
+  border-radius: 30px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 18px;
+  z-index: 2;
+}
+
+.next {
+  right: 10px;
+}
+
+
 

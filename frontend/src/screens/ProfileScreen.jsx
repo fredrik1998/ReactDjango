@@ -23,8 +23,45 @@ color: #fff;`
 
 const StyledCol = styled(Col)`
 margin-top: 0px
-
 `
+const StyledButton = styled(Button)`
+width: 100%;
+background: none;
+border: 4px solid;
+color: #52ffa8;
+font-weight: 700;
+
+text-transform: uppercase;
+cursor: pointer;
+font-size: 13px;
+position: relative;
+margin-top: 30px;
+@media only screen and (max-width: 767px) {
+  width: 75%;
+  margin: 0 auto 30px auto;
+}
+&:hover:before {
+  left: 80%;
+}
+&:hover:after {
+  right: 80%;
+}
+&:hover {
+  background: #52ffa8;
+  color: #000;
+}`;
+
+const StyledForm = styled(Form)`
+  @media only screen and (max-width: 767px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    input {
+      width: 100%;
+    }
+  }
+`;
 const ProfileScreen = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -87,13 +124,13 @@ const ProfileScreen = () => {
     <Layout>
         <Header/>
     <Row>
-    <Col md={{ span: 3, offset: 2  }}>
+    <Col md={{ span: 3, offset: 2 }}>
             <StyledH2>User Profile</StyledH2>
 
             {message && <Message variant='success'>{message}</Message>}
     {error && <Message variant='danger'>{error}</Message>}
     {loading && <Loader/>}
-    <Form onSubmit={submitHandler}>
+    <StyledForm onSubmit={submitHandler}>
 
     <Form.Group controlId='name'>
             <Form.Label>Name</Form.Label>
@@ -136,20 +173,17 @@ const ProfileScreen = () => {
             onChange={(e) => setConfirmPassword(e.target.value)}
             ></Form.Control>
         </Form.Group>                
-        <Button type='submit' variant='primary'>
+        <StyledButton type='submit' variant='primary'>
             Update
-        </Button>
+        </StyledButton>
         <Row className='py-3'>
-        <Col>
-        Already have an account? <StyledLink to={redirect ? `/login?redirect=${redirect}` : '/login'}>Sign in</StyledLink>
-        </Col>
-
+       
     </Row>   
 
-    </Form>
+    </StyledForm>
         </Col>
 
-        <Col md={{ span: 3, offset: 2 }}>
+        <Col md={{ span: 5, offset: 2 }}>
             <StyledH2>My Orders</StyledH2>
         </Col>
     </Row>

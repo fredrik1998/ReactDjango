@@ -12,7 +12,6 @@ import styled from 'styled-components'
 
 const StyledDiv = styled.div`
 display: flex;
-flex-direction:
 `
 const HomeScreen = () => {
 
@@ -77,13 +76,12 @@ const HomeScreen = () => {
           break;
       }
 
-
 return (
   <div>
     <Header updateSearchTerm={updateSearchTerm} />
     {searchTerm.length === 0 && (
         <>
-          <h2 style={{ color: "#FFF" }}>Filters</h2>
+          <h4 style={{ color: "#FFF" }}>Filters</h4>
           <StyledDiv>
             <FilterByPrice
               selectedFilter={selectedFilter}

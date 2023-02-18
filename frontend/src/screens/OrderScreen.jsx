@@ -27,18 +27,29 @@ const StyledListGroup = styled(ListGroup)`
   .list-group-item {
     background-color: #1a1a1a;
     color: #fff;
+    border: px solid
+    
   }
 `;
+const StyledImage = styled(Image)`
+@media only screen and (max-width: 767px){
+  width: 200px;
 
+}
+`
+const OrderItemsH2 = styled.h2`
+margin-left: 10px;
+margin-top: 3rem;
+`
 const StyledH2 = styled.h2`
 margin-top: 3rem;`
 
 const StyledCol = styled(Col)`
-
 margin-top: 30px;`
 
 const StyledCard = styled(Card)`
-margin-top: 50px;`
+margin-top: 50px;
+border: none;`
 
 const StyledButton = styled(Button)`
 width: 100%;
@@ -52,10 +63,6 @@ cursor: pointer;
 font-size: 13px;
 position: relative;
 margin-top: 30px;
-@media only screen and (max-width: 767px) {
-  width: 75%;
-  margin: 0 auto 30px auto;
-}
 &:hover:before {
   left: 80%;
 }
@@ -126,7 +133,7 @@ const OrderScreen = () => {
                 </ListGroup.Item>
               </StyledListGroup>
               <ListGroup.Item>
-                  <StyledH2 style={{color:'#FFF'}}>Order Items</StyledH2>
+                  <OrderItemsH2 style={{color:'#FFF'}}>Order Items</OrderItemsH2>
                   {cart.cartItems.length === 0 ? <Message variant='info'>
                     You have no items in cart</Message> : (
                       <StyledListGroup variant='flush'>
@@ -134,7 +141,7 @@ const OrderScreen = () => {
                           <ListGroup.Item key={index}>
                             <Row > 
                               <Col md={1}>
-                              <Image src={item.image} alt={item.name} fluid rounded></Image>
+                              <StyledImage src={item.image} alt={item.name} fluid rounded></StyledImage>
                               </Col>
                               <Col md={3}>
                               <StyledLink to={`/product/${item.product}`}>{item.name}</StyledLink>

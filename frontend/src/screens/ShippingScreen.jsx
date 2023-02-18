@@ -18,15 +18,15 @@ background: none;
 border: 4px solid;
 color: #52ffa8;
 font-weight: 700;
-
 text-transform: uppercase;
 cursor: pointer;
 font-size: 13px;
-position: relative;
-margin-top: 30px;
+margin-top: 40px;
+
+
 @media only screen and (max-width: 767px) {
-  width: 75%;
-  margin: 0 auto 30px auto;
+  width: 100%;
+  
 }
 &:hover:before {
   left: 80%;
@@ -41,6 +41,7 @@ margin-top: 30px;
 
 
 const StyledFormControl = styled(Form)`
+width: 100%;
 .form-control{
     background-color: #1a1a1a;
     width: 100px;

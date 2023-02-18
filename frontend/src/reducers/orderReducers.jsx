@@ -1,4 +1,21 @@
-import { ORDER_CREATE_REQUEST, ORDER_CREATE_SUCCESS, ORDER_CREATE_FAIL, ORDER_CREATE_RESET, ORDER_DETAILS_REQUEST,ORDER_DETAILS_SUCCESS, ORDER_DETAILS_FAIL} from "../constants/orderConstants";
+import {
+    ORDER_CREATE_REQUEST,
+    ORDER_CREATE_SUCCESS,
+    ORDER_CREATE_FAIL,
+    ORDER_CREATE_RESET,
+    ORDER_DETAILS_REQUEST,
+    ORDER_DETAILS_SUCCESS,
+    ORDER_DETAILS_FAIL,
+    ORDER_PAYMENT_REQUEST,
+    ORDER_PAYMENT_SUCCESS,
+    ORDER_PAYMENT_FAIL,
+    ORDER_PAYMENT_RESET,
+    ORDER_LIST_MY_REQUEST,
+    ORDER_LIST_MY_SUCCESS,
+    ORDER_LIST_MY_FAIL,
+    ORDER_LIST_MY_RESET
+    }
+    from "../constants/orderConstants";
 
 export const orderCreateReducer = (state={}, action) =>{
     switch(action.type){
@@ -52,4 +69,60 @@ export const orderDetailsReducer = (state={loading: true, orderItems: [], shippi
             return state    
     }
 }
+
+export const orderPaymentReducer = (state={}, action) => {
+    switch(action.type){
+        case ORDER_PAYMENT_REQUEST:
+            return{
+                ...state,
+                loading:true
+            }
+
+        case ORDER_PAYMENT_SUCCESS:
+            return{
+                loading:false,
+                success: true,
+            }
+        case ORDER_PAYMENT_FAIL:
+            return{
+                loading:false,
+                error: action.payload,
+            } 
+         case ORDER_PAYMENT_RESET:
+            return{}
+      
+            
+        default:
+            return state    
+    }
+}
+
+export const orderListReducer = (state={orders: []}, action) => {
+    switch(action.type){
+        case ORDER_LIST_MY_REQUEST:
+            return{
+                ...state,
+                loading:true
+            }
+
+        case ORDER_LIST_MY_SUCCESS:
+            return{
+                loading:false,
+                orders: action.payload,
+            }
+        case ORDER_LIST_MY_FAIL:
+            return{
+                loading:false,
+                error: action.payload,
+            } 
+        case ORDER_LIST_MY_RESET:
+            return{orders:[]}
+      
+            
+        default:
+            return state    
+    }
+}
+
+
 

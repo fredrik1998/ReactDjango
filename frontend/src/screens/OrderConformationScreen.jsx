@@ -1,5 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import React, { useState, useEffect} from 'react';
+import Stripe from 'stripe';
+import axios from 'axios';
+import { loadStripe } from '@stripe/stripe-js';
+import { CardElement, Elements, useStripe, useElements } from '@stripe/react-stripe-js';
+import { Link, useNavigate, useParams, } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Form,
@@ -17,10 +21,14 @@ import { saveShippingAddress } from '../actions/cartActions';
 import Header from '../components/Header';
 import Layout from '../components/layout';
 import FormContainer from '../components/FormContainer';
+import CheckoutForm from '../components/CheckoutForm';
 import styled from 'styled-components';
 import Message from '../components/message';
 import Loader from '../components/Loader';
-import { getOrderDetails } from '../actions/orderActions';
+import { getOrderDetails, updateOrderToPaid} from '../actions/orderActions';
+
+
+const stripePromise = loadStripe('pk_test_51MbkNeGJ8v9b2yrMsOEfEwwuEkzRpZOrJ2A5Wkdti8WqCdwI7b0BXIFGAwX888Qpd6K8fZG07igiitpOGOEE52Ns00Aj9fGYtL');
 
 
 const StyledLink = styled(Link)`
@@ -38,12 +46,16 @@ color: #fff;
   .list-group-item {
     background-color: #1a1a1a;
     color: #fff;
+    
   }
 `;
 
 const StyledH2 = styled.h2`
 margin-top: 3rem;
-color: #fff;`
+color: #fff;
+@media only screen and (max-width: 767px){
+  margin-left: 10px;
+}`
 
 const StyledH1 = styled.h1`
 margin-top: 3rem;
@@ -52,11 +64,11 @@ padding: 10px;
 `
 
 const StyledCol = styled(Col)`
-
 margin-top: 30px;`
 
 const StyledCard = styled(Card)`
-margin-top: 50px;`
+margin-top: 50px;
+border: none;`
 
 const StyledButton = styled(Button)`
 width: 100%;
@@ -67,7 +79,12 @@ padding: 10px;
 border-radius: 10px;
 margin-top: 30px;
 `
+const StyledImage = styled(Image)`
+@media only screen and (max-width: 767px){
+  width: 200px;
 
+}
+`
 const OrderConformationScreen = () => {
   const { orderId } = useParams()
   const dispatch = useDispatch()
@@ -76,13 +93,17 @@ const OrderConformationScreen = () => {
   const orderDetails = useSelector(state => state.orderDetails)
   const {order, error, loading} = orderDetails
 
-  useEffect(() =>{
-    dispatch(getOrderDetails(orderId))
-  },[orderId, dispatch])
-
   const itemsPrice = order ? order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0).toFixed(2) : 0
   const shippingPrice = order && itemsPrice > 100 ? 0 : 10
   const totalPrice = order ? (Number(itemsPrice) + Number(shippingPrice)).toFixed(2) : 0
+  
+
+useEffect(() => {
+  dispatch(getOrderDetails(orderId));
+}, [orderId, dispatch]);
+
+const auth = useSelector((state) => state.auth);
+const token = auth && auth.userInfo && auth.userInfo.token;
 
   return loading ?(
     <Loader/>
@@ -97,7 +118,7 @@ const OrderConformationScreen = () => {
             <StyledH1>Order:{order.id}</StyledH1>
               <StyledListGroup variant='flush'>
                 <ListGroup.Item>
-                  <StyledH2>Shipping</StyledH2>
+                <StyledH2>Shipping</StyledH2>
                   <p><strong>Name: </strong>{order.user.name}</p>
                   <p><strong>Email: </strong><a style={{color:'#FFF'}} href={`mailto:${order.user.email}`}>{order.user.email}</a></p>
                   <p>
@@ -128,7 +149,7 @@ const OrderConformationScreen = () => {
                           <ListGroup.Item key={index}>
                             <Row > 
                               <Col md={1}>
-                              <Image src={item.image} alt={item.name} fluid rounded></Image>
+                              <StyledImage src={item.image} alt={item.name} fluid rounded></StyledImage>
                               </Col>
                               <Col md={3}>
                               <StyledLink to={`/product/${item.product}`}>{item.name}</StyledLink>
@@ -154,7 +175,7 @@ const OrderConformationScreen = () => {
                   <ListGroup.Item>
                     <Row>
                       <Col>Items:</Col>
-                      <Col>${order.itemsPrice}</Col>
+                      <Col>${itemsPrice}</Col>
                     </Row>
                   </ListGroup.Item>
 
@@ -173,6 +194,9 @@ const OrderConformationScreen = () => {
                     </Row>
                   </ListGroup.Item>
                   <ListGroup.Item>
+                  <Elements stripe={stripePromise}>
+                    <CheckoutForm orderId={orderId} totalPrice={totalPrice} />
+                  </Elements>
                   </ListGroup.Item>
                 </StyledListGroup>
               </StyledCard>

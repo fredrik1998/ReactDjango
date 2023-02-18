@@ -27,8 +27,9 @@ border: 1px transparent;
 border-radius: 12px;
 `
 const StyledCol = styled(Col)`
-background-color: #1a1a1a;
-color: #fff`
+  background-color: #1a1a1a;
+  color: #fff;
+`;
 
 const StyledListGroup = styled(ListGroup)`
   .list-group-item {
@@ -70,7 +71,8 @@ background-color: #2a2a2a;
 color: #fff;`
 
 const StyledButton = styled(Button)`
-  width: 100%;
+  width: 90%;
+  margin: 0 auto 50px auto;
   background: none;
   border: 4px solid;
   color: #52ffa8;
@@ -80,8 +82,9 @@ const StyledButton = styled(Button)`
   font-size: 13px;
   position: relative;
   @media only screen and (max-width: 767px) {
-    width: 75%;
-    margin: 0 auto 30px auto;
+    width: 50%;
+    margin: 0 auto 40px auto;
+    font-size: 0.8rem;
   }
   &:hover:before {
     left: 80%;

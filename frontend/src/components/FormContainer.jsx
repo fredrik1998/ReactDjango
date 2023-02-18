@@ -12,7 +12,7 @@ function FormContainer({children}) {
   return (
     <StyledContainer>
         <Row className='justify-content-md-center'>
-            <Col xs={12} md={6}>
+            <Col xs={12} md={7}>
             {children}
             </Col>
         </Row>

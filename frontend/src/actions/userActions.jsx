@@ -151,6 +151,7 @@ export const update = (user) => async(dispatch, getState) => {
         type: USER_UPDATE_PROFILE_SUCCESS,
         payload: data
     });
+    dispatch(listMyOrders());
 
     dispatch({
         type: USER_LOGIN_SUCCESS,

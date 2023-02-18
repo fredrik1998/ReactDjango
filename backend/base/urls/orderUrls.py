@@ -5,6 +5,8 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('add/', views.addOrderItems, name='orders-add'),
-    path('<str:pk>/', views.getOrderByID, name='user-order')
+    path('myorders/', views.getMyOrders, name='myorders'),
+    path('<str:pk>/', views.getOrderByID, name='user-order'),
+    path('<str:pk>/pay/', views.updateOrderToPaid, name='pay'),
 ]
 

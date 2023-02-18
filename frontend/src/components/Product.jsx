@@ -10,13 +10,15 @@ background-color: #202020;
 color: #fff;
 border: 1px transparent;
 border-radius: 12px;
+
 `
 const StyledH2 = styled.h2`
 color: #fff !important;
 `
 
 const StyledImage = styled(Card.Img)`
-background-color: transparent; `
+background-color: transparent;
+ `
 
 function Product({product}) {
   return (

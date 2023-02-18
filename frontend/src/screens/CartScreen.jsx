@@ -24,6 +24,16 @@ border-radius:18px;
  color: #fff;
 
 }`
+
+const StyledCard = styled(Card)`
+border: none;`
+
+
+
+const StyledImage = styled(Image)`
+@media only screen and (max-width: 767px){
+  width: 300px;
+}`
 const StyledListGroup = styled(ListGroup)`
   .list-group-item {
     background-color: #1a1a1a;
@@ -41,11 +51,7 @@ text-transform: uppercase;
 cursor: pointer;
 font-size: 13px;
 position: relative;
-margin-top: 30px;
-@media only screen and (max-width: 767px) {
-  width: 75%;
-  margin: 0 auto 30px auto;
-}
+margin-top: 40px;
 &:hover:before {
   left: 80%;
 }
@@ -144,7 +150,7 @@ function CartScreen() {
                         <ListGroup.Item key={item.product}>
                             <Row>
                                 <StyledCol md={2}>
-                                    <Image src={item.image} alt={item.name} fluid rounded></Image>
+                                    <StyledImage src={item.image} alt={item.name} fluid rounded></StyledImage>
                                 </StyledCol>
                                 <StyledCol md={3}>
                                     <StyledLink to={`/product/${item.product}`}>{item.name}</StyledLink>
@@ -187,7 +193,7 @@ function CartScreen() {
             )}
         </Col>
         <Col md={4}>
-            <Card>
+            <StyledCard>
                 <StyledListGroup variant='flush'>
                     <ListGroup.Item>
                         <h2>Subtotal({cartItems.reduce((acc, item)=>acc + item.quantity, 0)}) items</h2>
@@ -203,7 +209,7 @@ function CartScreen() {
                     onClick={checkoutHandler}><i class="fa-solid fa-truck-fast"></i>Proceed To Checkout</CheckoutButton>
                 </ListGroup.Item>
                 </StyledListGroup>
-            </Card>
+            </StyledCard>
         </Col>
     </Row>
     </Layout>

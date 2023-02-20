@@ -41,6 +41,7 @@ cursor: pointer;
 font-size: 13px;
 position: relative;
 margin-top: 40px;
+
 @media only screen and (max-width: 767px) {
   width: 45%;
  
@@ -55,6 +56,28 @@ margin-top: 40px;
   background: #52ffa8;
   color: #000;
 }`;
+
+const DetailsButton = styled(Button)`
+width: 100%;
+background: none;
+border: 4px solid;
+color: #52ffa8;
+font-weight: 700;
+text-transform: uppercase;
+cursor: pointer;
+font-size: 13px;
+position: relative;
+&:hover:before {
+  left: 80%;
+}
+&:hover:after {
+  right: 80%;
+}
+&:hover {
+  background: #52ffa8;
+  color: #000;
+}
+`;
 
 const StyledForm = styled(Form)`
   @media only screen and (max-width: 767px) {
@@ -72,6 +95,7 @@ const ProfileScreen = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [formErrors, setFormErrors] = useState({});
     const [message, setMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('')
     const navigate = useNavigate()
@@ -107,21 +131,47 @@ const ProfileScreen = () => {
     }, [user, success, navigate, dispatch, userInfo]);
 
     const submitHandler = (e) => {
-        e.preventDefault();
+      e.preventDefault();
+    
+      const errors = {};
+    
+      if(!name){
+        errors.name = 'Name is required'
+      }
+    
+      if(!email){
+        errors.email = 'Email is required'
+      }
+    
+      setFormErrors(errors);
+    
+      if(password !== confirmPassword){
+        setMessage('Password do not match')
+      } else if(Object.keys(errors).length === 0) {
+        dispatch(update({
+          'id' :user.id,
+          'name' :name,
+          'email' : email,
+          'password' :password
+        }));
+    
+        setSuccessMessage('User updated successfully!');
+        dispatch({ type: USER_UPDATE_PROFILE_RESET });
         
-        if(password != confirmPassword){
-            setMessage('Password do not match')
-        } else{
-            dispatch(update({
-                'id' :user.id,
-                'name' :name,
-                'email' : email,
-                'password' :password
-            }))
-            setMessage('')
-            dispatch(listMyOrders());
-        }  
+        const updatedUserInfo = {
+          ...userInfo,
+          name: name
+        };
+        localStorage.setItem('userInfo', JSON.stringify(updatedUserInfo));
+        
+        setName(name);
+        setMessage('');
+        dispatch(listMyOrders());
+      }
     };
+    
+    
+
 
   return (
     <StyledDiv>
@@ -139,23 +189,25 @@ const ProfileScreen = () => {
     <Form.Group controlId='name'>
             <Form.Label>Name</Form.Label>
             <Form.Control 
-            required
             type='name'
             placeholder='Enter name'
             value={name}
             onChange={(e) => setName(e.target.value)}
+            isInvalid={!!formErrors.name}
             ></Form.Control>
+            <Form.Control.Feedback type='invalid'>{formErrors.name}</Form.Control.Feedback>
         </Form.Group>
 
     <Form.Group controlId='email'>
             <Form.Label>Email Adress</Form.Label>
             <Form.Control 
-            required
             type='email'
             placeholder='Enter email'
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            isInvalid={!!formErrors.email}
             ></Form.Control>
+            <Form.Control.Feedback type='invalid'>{formErrors.email}</Form.Control.Feedback>
         </Form.Group>
 
     <Form.Group controlId='password'>
@@ -188,44 +240,49 @@ const ProfileScreen = () => {
         </Col>
 
         <Col md={{ span: 6, offset: 2 }}>
-            <StyledH2>My Orders</StyledH2>
-            {loadingOrders ? (
-              <Loader/>
-            ) : errorOrders ?  ( 
-              <Message variant='danger'>{errorOrders}</Message>
-            ): (
-              <Table striped responsive className='table-sm'>
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>Date</th>
-                    <th>Total</th>
-                    <th>Paid</th>
-                    <th>Delivered</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                {orders.map(order => (
-                                        <tr key={order.id}>
-                                            <td className='tablecell'>{order.id}</td>
-                                            <td className='tablecell'>{order.createdAt.substring(0, 10)}</td>
-                                            <td className='tablecell'>${order.totalPrice}</td>
-                                            <td>{order.isPaid ? order.paidAt.substring(0, 10) : (
-                                                <i className='fas fa-check' style={{ color: 'green' }}></i>
-                                            )}</td>
-                                            <td>
-                                                <LinkContainer to={`/order/${order.id}`}>
-                                                    <Button className='btn-sm'>Details</Button>
-                                                </LinkContainer>
-                                            </td>
-                                        </tr>
-                                    ))}
-                </tbody>
-
-              </Table>
-            )}
-        </Col>
+  <StyledH2>My Orders</StyledH2>
+  {loadingOrders ? (
+    <Loader />
+  ) : errorOrders ? (
+    <Message variant='danger'>{errorOrders}</Message>
+  ) : (
+    <div className='table-responsive'>
+      <Table striped className='table-sm'>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Date</th>
+            <th>Total</th>
+            <th>Paid</th>
+            <th>Delivered</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {orders.map((order) => (
+            <tr key={order.id}>
+              <td className='tablecell'>{order.id}</td>
+              <td className='tablecell'>{order.createdAt.substring(0, 10)}</td>
+              <td className='tablecell'>${order.totalPrice}</td>
+              <td>
+                {order.isPaid ? (
+                  order.paidAt.substring(0, 10)
+                ) : (
+                  <i className='fas fa-x' style={{ color: 'red' }}></i>
+                )}
+              </td>
+              <td>
+                <LinkContainer to={`/success/${order.id}`}>
+                  <DetailsButton className='btn-sm'>Details</DetailsButton>
+                </LinkContainer>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
+    </div>
+  )}
+</Col>
     </Row>
     </Layout>
     </StyledDiv>

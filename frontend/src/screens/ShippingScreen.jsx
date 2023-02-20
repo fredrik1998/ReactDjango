@@ -60,12 +60,42 @@ const ShippingScreen = () => {
     const [city, setCity] = useState(shippingAddress && shippingAddress.city ? shippingAddress.city : '')
     const [postalCode, setPostalCode] = useState(shippingAddress && shippingAddress.postalCode ? shippingAddress.postalCode : '')
     const [country, setCountry] = useState(shippingAddress && shippingAddress.country ? shippingAddress.country : '')
+    const [formErrors, setFormErrors] = useState({})
+    const [isDisabled, setIsDisabled] = useState(true)
 
     const submitHandler = (e) => {
-        e.preventDefault()
+      e.preventDefault();
+    
+      const errors = {};
+    
+      if(!address){
+        errors.address = 'Address is required'
+      }
+      if(!city){
+        errors.city = 'City is required'
+      }
+    
+      if(!postalCode){
+        errors.postalCode = 'Postal code is required'
+      }
+    
+      if(!country){
+        errors.country = 'Country is required'
+      }
+    
+      setFormErrors(errors);
+    
+      if (Object.keys(errors).length === 0) {
         dispatch(saveShippingAddress({address, city, postalCode, country}))
         navigate('/payment')
+      }
     }
+
+    useEffect(() => {
+      setIsDisabled(Object.keys(formErrors).length > 0);
+    }, [formErrors]);
+    
+    
   return (
     <div className='wrapper-login'>
     <Layout>
@@ -78,23 +108,25 @@ const ShippingScreen = () => {
         <Form.Group controlId='address'>
             <Form.Label>Address</Form.Label>
             <Form.Control 
-            required
             type='address'
             placeholder='Enter address'
             value={address ? address : ''}
             onChange={(e) => setAddress(e.target.value)}
+            isInvalid = {!!formErrors.address}
             ></Form.Control>
+            <Form.Control.Feedback type='invalid'>{formErrors.address}</Form.Control.Feedback>
         </Form.Group>
 
         <Form.Group controlId='city'>
             <Form.Label>City</Form.Label>
             <Form.Control 
-            required
             type='text'
             placeholder='Enter city'
             value={city ? city : ''}
             onChange={(e) => setCity(e.target.value)}
+            isInvalid={!!formErrors.city}
             ></Form.Control>
+            <Form.Control.Feedback type='invalid'>{formErrors.city}</Form.Control.Feedback>
         </Form.Group>
 
         <Form.Group controlId='postalCode'>
@@ -104,21 +136,25 @@ const ShippingScreen = () => {
             placeholder='Enter Postalcode'
             value={postalCode ? postalCode : ''}
             onChange={(e) => setPostalCode(e.target.value)}
+            isInvalid={!!formErrors.postalCode}
             ></Form.Control>
+            <Form.Control.Feedback type='invalid'>{formErrors.postalCode}</Form.Control.Feedback>
         </Form.Group>
 
         <Form.Group controlId='country'>
             <Form.Label>Country</Form.Label>
             <Form.Control 
-            required
             type='text'
             placeholder='Enter Country'
             value={country ? country : ''}
             onChange={(e) => setCountry(e.target.value)}
+            isInvalid = {!!formErrors.country}
             ></Form.Control>
+            <Form.Control.Feedback type='invalid'>{formErrors.country}</Form.Control.Feedback>
         </Form.Group>
 
         <ProceedButton type='submit' variant='primary'>Proceed</ProceedButton>
+
         </Form>
     </FormContainer>
     </Layout>

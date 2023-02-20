@@ -11,6 +11,7 @@ import ProfileScreen from './screens/ProfileScreen'
 import RegisterScreen from './screens/RegisterScreen'
 import ShippingScreen from './screens/ShippingScreen'
 import SuccessScreen from './screens/SuccessScreen'
+import UserListScreen from './screens/UserListScreen'
 
 function App() {
   return (
@@ -25,7 +26,8 @@ function App() {
       <Route path ='/payment' element={<PaymentScreen/>}/>
       <Route path ='/placeorder' element={<OrderScreen/>}/>
       <Route path='/order/:orderId'element={<OrderConformationScreen/>}/>
-      <Route path='/success' element={<SuccessScreen/>}/>
+      <Route path='/success/:orderId' element={<SuccessScreen/>}/>
+      <Route path='/admin/users' element={<UserListScreen/>}/>
     </Routes>
   )
 }

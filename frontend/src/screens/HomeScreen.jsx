@@ -20,6 +20,7 @@ const HomeScreen = () => {
   const { error, loading, products } = productList;
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedFilter, setSelectedFilter] = useState("");
+  const [isFirstVisit, setIsFirstVisit] = useState(true);
  
   useEffect(() => {
     dispatch(displayProducts(searchTerm));
@@ -116,6 +117,7 @@ return (
       ) : filteredProducts.length === 0 ? (
         <Message variant="danger">No results found</Message>
       ) : (
+
         <Row>
           {filteredProducts.map((product) => (
             <Col key={product.id} sm={12} md={6} lg={4} xl={3}>

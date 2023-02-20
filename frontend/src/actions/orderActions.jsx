@@ -110,7 +110,7 @@ export const updateOrderToPaid = (id, paidAt) => async(dispatch, getState) => {
         }
     }
     const {data} = await axios.put(
-        `http://localhost:8000/api/orders/${id}/pay`,
+        `http://localhost:8000/api/orders/${id}/pay/`,
         { paidAt },
         config
     );

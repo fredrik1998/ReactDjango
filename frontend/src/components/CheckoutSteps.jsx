@@ -9,7 +9,6 @@ const StyledNav = styled(Nav)`
   display: flex;
   align-content: center;
   justify-content: center;
-  flex
   margin-bottom: 1.5rem;
   .nav-item {
     flex: 1;
@@ -50,8 +49,6 @@ const StepperItem = styled.div`
     color: #000;
   }
 `;
-
-
 
 const CheckoutSteps = ({ step1, step2, step3, step4 }) => {
   return (

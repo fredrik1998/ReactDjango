@@ -39,10 +39,12 @@ const StyledImage = styled(Image)`
 `
 const OrderItemsH2 = styled.h2`
 margin-left: 10px;
+border-bottom: 1px solid #52ffa8;;
 margin-top: 3rem;
 `
 const StyledH2 = styled.h2`
-margin-top: 3rem;`
+margin-top: 3rem;
+border-bottom: 1px solid #52ffa8;;`
 
 const StyledCol = styled(Col)`
 margin-top: 30px;`

@@ -27,10 +27,10 @@ import Message from '../components/message';
 import Loader from '../components/Loader';
 import { getOrderDetails, updateOrderToPaid} from '../actions/orderActions';
 
-
 const stripePromise = loadStripe('pk_test_51MbkNeGJ8v9b2yrMsOEfEwwuEkzRpZOrJ2A5Wkdti8WqCdwI7b0BXIFGAwX888Qpd6K8fZG07igiitpOGOEE52Ns00Aj9fGYtL');
-
-
+const options = {
+  clientSecret: '{{CLIENT_SECRET}}',
+};
 const StyledLink = styled(Link)`
 color: #FFF;
 border-radius:18px;
@@ -133,15 +133,17 @@ const token = auth && auth.userInfo && auth.userInfo.token;
                     <strong>Method: </strong>
                     {order.paymentMethod}
                   </p>
+
                   {order.isPaid ? (
-                    <Message variant='success'>Paid on {order.paidAt}</Message>
-                  ) : (
-                    <Message variant='warning'>Not Paid</Message>
-                  )}
+    <Message variant='success'>Paid on {new Date(order.paidAt).toLocaleString('en-US', {year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'})}</Message>
+) : (
+    <Message variant='warning'>Not Paid</Message>
+)}
+
                 </ListGroup.Item>
               </StyledListGroup>
               <ListGroup.Item>
-                  <StyledH2 style={{color:'#FFF'}}>Order Items</StyledH2>
+                  <StyledH2 style={{color:'#FFF', marginLeft: '20px'}}>Order Items</StyledH2>
                   {order.orderItems.length === 0 ? <Message variant='info'>
                     Order empty</Message> : (
                       <StyledListGroup variant='flush'>
@@ -194,8 +196,8 @@ const token = auth && auth.userInfo && auth.userInfo.token;
                     </Row>
                   </ListGroup.Item>
                   <ListGroup.Item>
-                  <Elements stripe={stripePromise}>
-                    <CheckoutForm orderId={orderId} totalPrice={totalPrice} />
+                  <Elements stripe={stripePromise} >
+                    <CheckoutForm orderId={orderId} totalPrice={totalPrice}  />
                   </Elements>
                   </ListGroup.Item>
                 </StyledListGroup>

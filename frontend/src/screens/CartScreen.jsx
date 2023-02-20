@@ -12,6 +12,7 @@ import styled from 'styled-components'
 
 const StyledRow = styled(Row)`
 background-color: #1a1a1a;
+
 `
 const StyledDiv = styled.div`
 background-color: #1a1a1a;
@@ -28,7 +29,11 @@ border-radius:18px;
 const StyledCard = styled(Card)`
 border: none;`
 
-
+const StyledH2 = styled.h2`
+color: #FFF;
+@media only screen and (max-width: 767px){
+border: none;
+}`
 
 const StyledImage = styled(Image)`
 @media only screen and (max-width: 767px){
@@ -42,26 +47,29 @@ const StyledListGroup = styled(ListGroup)`
 `;
 
 const CheckoutButton = styled(Button)`
-width: 100%;
-background: none;
-border: 4px solid;
-color: #52ffa8;
-font-weight: 700;
-text-transform: uppercase;
-cursor: pointer;
-font-size: 13px;
-position: relative;
-margin-top: 40px;
-&:hover:before {
-  left: 80%;
-}
-&:hover:after {
-  right: 80%;
-}
-&:hover {
-  background: #52ffa8;
-  color: #000;
-}`;
+  width: 100%;
+  background: none;
+  border: 4px solid;
+  color: #52ffa8;
+  font-weight: 700;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-size: clamp(13px, 3.5vw, 16px);
+  position: relative;
+  margin-top: 40px;
+
+  &:hover:before {
+    left: 80%;
+  }
+  &:hover:after {
+    right: 80%;
+  }
+  &:hover {
+    background: #52ffa8;
+    color: #000;
+  }
+`;
+
 
 const CartButton = styled(Button)`
   padding: 10px;
@@ -77,11 +85,9 @@ const CartButton = styled(Button)`
     pointer-events: none;
     background: transparent;
   }
-  
   @media (max-width: 767px) {
     width: 10%;
   }
-  
 `;
 
 const DeleteButton = styled(Button)`
@@ -148,7 +154,7 @@ function CartScreen() {
                 <StyledListGroup variant='flush'>
                     {cartItems.map(item => (
                         <ListGroup.Item key={item.product}>
-                            <Row>
+                            <StyledRow>
                                 <StyledCol md={2}>
                                     <StyledImage src={item.image} alt={item.name} fluid rounded></StyledImage>
                                 </StyledCol>
@@ -186,7 +192,7 @@ function CartScreen() {
 
                                 </StyledCol>
                               
-                            </Row>
+                            </StyledRow>
                         </ListGroup.Item>
                     ))}
                 </StyledListGroup>
@@ -196,7 +202,7 @@ function CartScreen() {
             <StyledCard>
                 <StyledListGroup variant='flush'>
                     <ListGroup.Item>
-                        <h2>Subtotal({cartItems.reduce((acc, item)=>acc + item.quantity, 0)}) items</h2>
+                        <StyledH2>Subtotal({cartItems.reduce((acc, item)=>acc + item.quantity, 0)}) items</StyledH2>
                         <h3>$({cartItems.reduce((acc, item)=>acc + item.quantity * item.price, 0).toFixed(2)}) </h3>
                     </ListGroup.Item>
                 </StyledListGroup>

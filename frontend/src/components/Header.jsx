@@ -65,6 +65,8 @@ const Header = ({ updateSearchTerm }) => {
             <Nav.Link><i className='fas fa-shopping-cart'></i>{cartItemCount > 0 ? <span className='cart-count'>{cartItemCount}</span> : null}
 </Nav.Link>
             </LinkContainer>
+
+            
            
             {userInfo ? (
               <NavDropdown title={userInfo.name} id='username'>
@@ -82,6 +84,30 @@ const Header = ({ updateSearchTerm }) => {
             <Nav.Link><i className='fas fa-user'></i>Login</Nav.Link>   
             </LinkContainer>
             )}
+              {userInfo && userInfo.isAdmin && (
+        <NavDropdown title='admin' id='adminmenu'>
+
+        <LinkContainer to='/admin/users'>
+          <NavDropdown.Item>
+            Users
+          </NavDropdown.Item>
+        </LinkContainer>
+
+        <LinkContainer to='/admin/products'>
+          <NavDropdown.Item>
+            Products
+          </NavDropdown.Item>
+        </LinkContainer>
+
+        <LinkContainer to='/admin/orders'>
+          <NavDropdown.Item>
+            Orders
+          </NavDropdown.Item>
+        </LinkContainer>
+        
+        
+      </NavDropdown>
+      )}
              {location === "/" ? (
               <Form>
               <Form.Group>
@@ -93,8 +119,7 @@ const Header = ({ updateSearchTerm }) => {
             />
             </Form.Group>
           </Form>
-      ) : null}
-             
+      ) : null}     
           </Nav>
         </Navbar.Collapse>
       </Container>

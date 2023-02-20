@@ -79,7 +79,7 @@ const StyledButton = styled(Button)`
   font-weight: 700;
   text-transform: uppercase;
   cursor: pointer;
-  font-size: 13px;
+  font-size: clamp(13px, 3.5vw, 16px);
   position: relative;
   @media only screen and (max-width: 767px) {
     width: 50%;

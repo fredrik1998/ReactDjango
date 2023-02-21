@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useStripe, useElements, CardElement, } from '@stripe/react-stripe-js';
+import { useStripe, useElements, CardElement, PaymentElement} from '@stripe/react-stripe-js';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
@@ -55,7 +55,7 @@ const StyledButton = styled(Button)`
   }
 `;
 
-const CheckoutForm = ({ orderId, totalPrice }) => {
+const CheckoutForm = ({ orderId, totalPrice}) => {
   const [error, setError] = useState(null);
   const [succeeded, setSucceeded] = useState(false);
   const [processing, setProcessing] = useState(false);
@@ -67,45 +67,33 @@ const CheckoutForm = ({ orderId, totalPrice }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+  
     if (!stripe || !elements) {
       return;
     }
-
+  
     setProcessing(true);
-
-    const cardElement = elements.getElement(CardElement);
-
-    const { error, paymentMethod } = await stripe.createPaymentMethod({
-      type: 'card',
-      card: cardElement,
+    dispatch(updateOrderToPaid(orderId));
+  
+    const {error, paymentIntent} = await stripe.confirmPayment({
+      elements,
+      confirmParams: {
+        return_url: `${window.location.origin}/success`
+      },
+      
     });
-
+   
+  
     if (error) {
       setError(error.message);
       setProcessing(false);
-    } else {
-      try {
-        const { data } = await axios.post(
-          'http://localhost:8000/api/payments/create-payment/',
-          {
-            orderId,
-            totalPrice,
-            paymentMethodId: paymentMethod.id,
-          },
-        );
-        dispatch(updateOrderToPaid(orderId));
-        setSucceeded(true);
-        setTimeout(() => {
-          navigate(`/success/${orderId}`);
-        }, 2000);
-      } catch (error) {
-        setError(error.response.data.message);
-      }
-
+    } else if (paymentIntent.status === 'succeeded') {
+      setSucceeded(true);
       setProcessing(false);
+      navigate('/success');
     }
   };
+  
 
   const handleChange = (event) => {
     setDisabled(event.empty);
@@ -116,7 +104,7 @@ const CheckoutForm = ({ orderId, totalPrice }) => {
     <StyledForm onSubmit={handleSubmit}>
       <h3>Payment</h3>
       <StyledLabel>Card Details</StyledLabel>
-      <StyledCardElement onChange={handleChange} />
+      <PaymentElement onChange={handleChange} />
       {error && <Message variant='danger'>{error}</Message>}
       <StyledButton
         type='submit'
@@ -129,8 +117,6 @@ const CheckoutForm = ({ orderId, totalPrice }) => {
         <Message variant='success'>Payment succeeded!</Message>
       )}
     </StyledForm>
- 
   );
 };
-
-export default CheckoutForm;
+export default CheckoutForm

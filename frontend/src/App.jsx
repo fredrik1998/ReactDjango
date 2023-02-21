@@ -26,8 +26,9 @@ function App() {
       <Route path ='/payment' element={<PaymentScreen/>}/>
       <Route path ='/placeorder' element={<OrderScreen/>}/>
       <Route path='/order/:orderId'element={<OrderConformationScreen/>}/>
-      <Route path='/success/:orderId' element={<SuccessScreen/>}/>
+      <Route path='/success' element={<SuccessScreen/>}/>
       <Route path='/admin/users' element={<UserListScreen/>}/>
+      
     </Routes>
   )
 }

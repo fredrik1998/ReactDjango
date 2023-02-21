@@ -1,6 +1,5 @@
 import React, { useState, useEffect} from 'react';
 import styled from 'styled-components'
-import ConfettiAnimation from '../components/ConfettiAnimation';
 import Header from '../components/Header'
 
 import Stripe from 'stripe';
@@ -96,86 +95,14 @@ const orderDetails = useSelector(state => state.orderDetails)
 const {order, error, loading} = orderDetails
 
 const itemsPrice = order ? order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0).toFixed(2) : 0
-return loading ?(
-  <Loader/>
-) : error ? (
-  <Message variant='danger'>{error}</Message>
-) : (
+return (
+
     <SuccessContainer>
         <Header/>
-       
+    <Layout>
     <h1 style={{color:'#FFF', textAlign: 'center'}}>Thanks for the order!</h1>
-    <StyledListGroup variant='flush'>
-                <ListGroup.Item>
-                <StyledH2>Shipping</StyledH2>
-                  <p><strong>Name: </strong>{order.user.name}</p>
-                  <p><strong>Email: </strong><a style={{color:'#FFF'}} href={`mailto:${order.user.email}`}>{order.user.email}</a></p>
-                  <p>
-            
-                    {order.shippingAddress.address}, {order.shippingAddress.city}, {" "}
-                    {order.shippingAddress.postalCode}, {order.shippingAddress.country}
-                  </p>
-                 
-                </ListGroup.Item>
-                </StyledListGroup>
-                <ListGroup.Item>
-                  <StyledH2 style={{color:'#FFF', marginLeft: '20px'}}>Order Items</StyledH2>
-                  {order.orderItems.length === 0 ? <Message variant='info'>
-                    Order empty</Message> : (
-                      <StyledListGroup variant='flush'>
-                        {order.orderItems.map((item, index) =>(
-                          <ListGroup.Item key={index}>
-                            <Row > 
-                              <Col md={1}>
-                              <StyledImage src={item.image} alt={item.name} fluid rounded></StyledImage>
-                              </Col>
-                              <Col md={3}>
-                              <StyledLink to={`/product/${item.product}`}>{item.name}</StyledLink>
-                              </Col>
-                              <Col md={6}>
-                                {item.qty} X ${item.price} = ${(item.qty *  item.price).toFixed(2)}
-                              </Col>
-                            </Row>
-                          </ListGroup.Item>
-                        ))}
-                      </StyledListGroup>
-                    )
-                  }
-                </ListGroup.Item>
-                <ListGroup.Item>
-                  <StyledCol md={4}>
-              <StyledCard>
-                <StyledListGroup variant='flush'>
-                  <ListGroup.Item>
-                    <StyledH2>Order Summary</StyledH2>
-                  </ListGroup.Item>
-
-                  <ListGroup.Item>
-                    <Row>
-                      <Col>Items:</Col>
-                      <Col>${itemsPrice}</Col>
-                    </Row>
-                  </ListGroup.Item>
-
-                  <ListGroup.Item>
-                    <Row>
-                      <Col>Shipping:</Col>
-                      <Col>${order.shippingPrice}</Col>
-                    </Row>
-                  </ListGroup.Item>
-
-                
-                  <ListGroup.Item>
-                    <Row>
-                      <Col>Total Price:</Col>
-                      <Col>${order.totalPrice}</Col>
-                    </Row>
-                  </ListGroup.Item>
-                  </StyledListGroup>
-                  </StyledCard>
-                  <Message variant='success'>Paid on {new Date(order.paidAt).toLocaleString('en-US', {year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'})}</Message>
-                  </StyledCol>
-                </ListGroup.Item>
+   
+                </Layout>
     </SuccessContainer>
   )
 }

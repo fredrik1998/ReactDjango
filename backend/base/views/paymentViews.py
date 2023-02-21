@@ -16,11 +16,13 @@ from django.http import JsonResponse
 
 @api_view(['POST'])
 def create_payment(request):
-    amount = int(float(request.data.get('totalPrice')) * 100)
-    create_payment_intent = stripe.PaymentIntent.create(
+    amount = 1000
+    payment_intent = stripe.PaymentIntent.create(
         amount=amount,
-        currency = 'usd',
+        currency='usd',
         payment_method_types=['card'],
         receipt_email='test@example.com'
     )
-    return Response(status=status.HTTP_200_OK, data=create_payment_intent)
+    client_secret = payment_intent.client_secret
+    return Response(status=status.HTTP_200_OK, data={'client_secret': client_secret})
+

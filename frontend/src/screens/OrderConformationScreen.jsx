@@ -28,8 +28,8 @@ import Loader from '../components/Loader';
 import { getOrderDetails, updateOrderToPaid} from '../actions/orderActions';
 
 const stripePromise = loadStripe('pk_test_51MbkNeGJ8v9b2yrMsOEfEwwuEkzRpZOrJ2A5Wkdti8WqCdwI7b0BXIFGAwX888Qpd6K8fZG07igiitpOGOEE52Ns00Aj9fGYtL');
-const options = {
-  clientSecret: '{{CLIENT_SECRET}}',
+const appearance = {
+  theme: 'night'
 };
 const StyledLink = styled(Link)`
 color: #FFF;
@@ -101,6 +101,20 @@ const OrderConformationScreen = () => {
 useEffect(() => {
   dispatch(getOrderDetails(orderId));
 }, [orderId, dispatch]);
+
+const [clientSecret, setClientSecret] = useState('');
+useEffect(() => {
+  const fetchClientSecret = async () => {
+    const { data } = await axios.post(
+      'http://localhost:8000/api/payments/create-payment/'
+    );
+    const {client_secret } = data;
+    console.log(client_secret);
+    setClientSecret(client_secret);
+  };
+  fetchClientSecret();
+}, []);
+
 
 const auth = useSelector((state) => state.auth);
 const token = auth && auth.userInfo && auth.userInfo.token;
@@ -196,9 +210,11 @@ const token = auth && auth.userInfo && auth.userInfo.token;
                     </Row>
                   </ListGroup.Item>
                   <ListGroup.Item>
-                  <Elements stripe={stripePromise} >
+                  {stripePromise && clientSecret && (
+                    <Elements stripe={stripePromise} options= {{ clientSecret, appearance }}>
                     <CheckoutForm orderId={orderId} totalPrice={totalPrice}  />
-                  </Elements>
+                   </Elements>
+                  )}
                   </ListGroup.Item>
                 </StyledListGroup>
               </StyledCard>

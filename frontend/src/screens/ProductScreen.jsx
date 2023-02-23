@@ -49,6 +49,10 @@ const StyledListGroupButton = styled(ListGroup)`
   }
 `;
 
+const StyledImage = styled(Image)`
+width: 400px;
+height: 400px;
+`
 
 const StyledDiv = styled.div`
 background-color: #1a1a1a;
@@ -137,7 +141,7 @@ const [quantity, setQuantity] = useState(1)
         :(
         <Row>
         <StyledCol md={6}>
-        <Image width={"400px"} height={"400px"} src={product.image} alt={product.name} fluid/>
+        <StyledImage src={product.image} alt={product.name} fluid/>
         </StyledCol>
 
         <StyledCol md={3} className="custom-background">

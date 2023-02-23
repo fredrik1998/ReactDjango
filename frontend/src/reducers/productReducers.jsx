@@ -4,9 +4,18 @@ import { PRODUCT_LIST_FAIL,
          PRODUCT_DETAILS_REQUEST,
          PRODUCT_DETAILS_SUCCESS,
          PRODUCT_DETAILS_FAIL,
-        PRODUCT_TOP_REQUEST,
-      PRODUCT_TOP_SUCCESS,
-    PRODUCT_TOP_FAIL} from "../constants/productConstants"
+         PRODUCT_TOP_REQUEST,
+         PRODUCT_TOP_SUCCESS,
+         PRODUCT_TOP_FAIL,
+         PRODUCT_DELETE_REQUEST,
+         PRODUCT_DELETE_SUCCESS,
+         PRODUCT_DELETE_FAIL,
+         PRODUCT_CREATE_REQUEST,
+         PRODUCT_CREATE_SUCCESS,
+         PRODUCT_CREATE_FAIL,
+         PRODUCT_CREATE_RESET,
+       }
+     from "../constants/productConstants"
 
 export const productListReducer = (state ={products: [], error: null, loading: false}, action) =>{
     switch(action.type){
@@ -40,6 +49,42 @@ export const productListReducer = (state ={products: [], error: null, loading: f
     }
   }
 
+  export const productDeleteReducer = (state = {},  action) =>{
+    switch(action.type){
+      case PRODUCT_DELETE_REQUEST:
+        return {...state, loading: true,}
+  
+      case PRODUCT_DELETE_SUCCESS:
+        return {...state, loading: false, success: true, error: action.payload}
+  
+      case PRODUCT_DELETE_FAIL:
+        return {...state, loading: false, error: action.payload}    
+  
+      default: 
+        return state
+    }
+  }
+
+  export const productCreateReducer = (state = {},  action) =>{
+    switch(action.type){
+      case PRODUCT_CREATE_REQUEST:
+        return {...state, loading: true,}
+  
+      case PRODUCT_CREATE_SUCCESS:
+        return {...state, loading: false, success: true, product: action.payload}
+  
+      case PRODUCT_CREATE_FAIL:
+        return {...state, loading: false, error: action.payload}
+
+      case PRODUCT_CREATE_RESET:
+        return {};
+  
+      default: 
+        return state
+    }
+  }
+
+
   export const productTopRatedReducer = (state ={products:[]},  action) =>{
     switch(action.type){
       case PRODUCT_TOP_REQUEST:
@@ -55,6 +100,9 @@ export const productListReducer = (state ={products: [], error: null, loading: f
         return state
     }
   }
+
+  
+
 
   
 

@@ -53,6 +53,9 @@ const StyledButton = styled(Button)`
     background: #52ffa8;
     color: #000;
   }
+  @media only screen and (max-width: 767px) {
+    margin-top: 25px;
+  }
 `;
 
 const CheckoutForm = ({ orderId, totalPrice}) => {
@@ -83,7 +86,6 @@ const CheckoutForm = ({ orderId, totalPrice}) => {
       
     });
    
-  
     if (error) {
       setError(error.message);
       setProcessing(false);
@@ -94,7 +96,6 @@ const CheckoutForm = ({ orderId, totalPrice}) => {
     }
   };
   
-
   const handleChange = (event) => {
     setDisabled(event.empty);
     setError(event.error ? event.error.message : null);

@@ -68,6 +68,10 @@ const CheckoutButton = styled(Button)`
     background: #52ffa8;
     color: #000;
   }
+
+  @media only screen and (max-width: 767px) {
+    margin-top: 5px;
+  }
 `;
 
 
@@ -222,5 +226,4 @@ function CartScreen() {
     </StyledDiv>
   )
 }
-
 export default CartScreen

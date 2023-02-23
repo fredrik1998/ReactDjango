@@ -9,7 +9,8 @@ import styled from 'styled-components'
 import { Button, Table, Row, Col } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import { displayProducts } from '../actions/productActions';
+import { displayProducts, deleteProduct, createProduct } from '../actions/productActions';
+import { PRODUCT_CREATE_RESET } from '../constants/productConstants';
 const UsersContainer = styled.div`
 background-color:#1a1a1a;
 `
@@ -27,28 +28,37 @@ const ProductListScreen = () => {
   const navigate = useNavigate()
 
   const productList = useSelector((state => state.productList));
-  const { loading, error, product} = productList;
+  const { loading, error, products } = productList;
+
+  const productDelete = useSelector((state => state.productDelete));
+  const { loading: loadingDelete, error: errorDelete, success: successDelete } = productDelete;
+
+  const productCreate = useSelector((state => state.productCreate));
+  const { loading: loadingCreate, error: errorCreate, success: successCreate, product: createdProduct} = productCreate;
 
   const userLogin = useSelector((state => state.userLogin))
   const {userInfo} = userLogin;
 
- 
   useEffect(() => {
-    if(userInfo && userInfo.isAdmin){
-      dispatch(displayProducts());
-    } 
-  
-  }, [dispatch, navigate, userInfo]);
+    dispatch({type: PRODUCT_CREATE_RESET})
+
+    if(!userInfo.isAdmin){
+      navigate('/login')
+    }
+    if(successCreate){
+     navigate(`/admin/products/${createdProduct.id}/edit`)
+    } else {
+      dispatch(displayProducts())
+    }
+  }, [dispatch, navigate, userInfo, successDelete, successCreate, createProduct]);
 
   const deleteHandler = (id) => {
-    console.log('Delete products')
-    }
+    dispatch(deleteProduct(id))
   }
 
-  const createProductHandler = (product) => {
-    console.log('create product')
-  }
-
+  const createProductHandler = () => {
+    dispatch(createProduct())
+  } 
   return(
     <UsersContainer>
     <Layout>
@@ -63,6 +73,12 @@ const ProductListScreen = () => {
             </StyledButton>
             </Col>
         </Row>
+        {loadingDelete && <Loader/>}
+        {errorDelete && <Message variant='danger'>{errorDelete}</Message>}
+
+        {loadingCreate && <Loader/>}
+        {errorCreate && <Message variant='danger'>{errorCreate}</Message>}
+
         {loading
                 ? (<Loader />)
                 : error
@@ -90,7 +106,7 @@ const ProductListScreen = () => {
 
         <td>
           <div className="d-flex align-items-center">
-            <LinkContainer to={`/admin/product/${product.id}/edit`}>
+            <LinkContainer to={`/admin/products/${product.id}/edit`}>
               <StyledButton variant="light" className="btn-sm">
                 <i className="fas fa-edit"></i>
               </StyledButton>
@@ -121,6 +137,7 @@ const ProductListScreen = () => {
     </UsersContainer>
   );
 }
+
 
 
 export default ProductListScreen;

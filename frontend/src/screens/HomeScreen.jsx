@@ -12,9 +12,9 @@ import styled from 'styled-components'
 
 const StyledDiv = styled.div`
 display: flex;
+
 `
 const HomeScreen = () => {
-
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
   const { error, loading, products } = productList;

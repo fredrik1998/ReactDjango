@@ -32,10 +32,6 @@ const StyledButton = styled(Button)`
   font-size: 13px;
   position: relative;
   margin-top: 30px;
-  @media only screen and (max-width: 767px) {
-    width: 75%;
-    margin: 0 auto 30px auto;
-  }
   &:hover:before {
     left: 80%;
   }
@@ -46,6 +42,7 @@ const StyledButton = styled(Button)`
     background: #52ffa8;
     color: #000;
   }
+ 
 `;
 function LoginScreen() {
     const [email, setEmail] = useState('');

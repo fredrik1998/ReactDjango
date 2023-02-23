@@ -61,6 +61,7 @@ const StyledH1 = styled.h1`
 margin-top: 3rem;
 color: #fff;
 padding: 10px;
+margin-left: 10px;
 `
 
 const StyledCol = styled(Col)`
@@ -104,16 +105,33 @@ useEffect(() => {
 
 const [clientSecret, setClientSecret] = useState('');
 useEffect(() => {
+  let cancelToken = axios.CancelToken.source();
+
   const fetchClientSecret = async () => {
-    const { data } = await axios.post(
-      'http://localhost:8000/api/payments/create-payment/'
-    );
-    const {client_secret } = data;
-    console.log(client_secret);
-    setClientSecret(client_secret);
+    try {
+      const { data } = await axios.post(
+        'http://localhost:8000/api/payments/create-payment/',
+        { cancelToken: cancelToken.token }
+      );
+      const { client_secret } = data;
+      console.log(client_secret);
+      setClientSecret(client_secret);
+    } catch (error) {
+      if (axios.isCancel(error)) {
+        console.log('Request canceled:', error.message);
+      } else {
+        throw error;
+      }
+    }
   };
+
   fetchClientSecret();
+
+  return () => {
+    cancelToken.cancel('Component unmounted');
+  };
 }, []);
+
 
 
 const auth = useSelector((state) => state.auth);
@@ -210,7 +228,7 @@ const token = auth && auth.userInfo && auth.userInfo.token;
                     </Row>
                   </ListGroup.Item>
                   <ListGroup.Item>
-                  {stripePromise && clientSecret && (
+                  {!order.isPaid && stripePromise && clientSecret && (
                     <Elements stripe={stripePromise} options= {{ clientSecret, appearance }}>
                     <CheckoutForm orderId={orderId} totalPrice={totalPrice}  />
                    </Elements>

@@ -64,10 +64,7 @@ const Header = ({ updateSearchTerm }) => {
             <LinkContainer to='/cart'>
             <Nav.Link><i className='fas fa-shopping-cart'></i>{cartItemCount > 0 ? <span className='cart-count'>{cartItemCount}</span> : null}
 </Nav.Link>
-            </LinkContainer>
-
-            
-           
+            </LinkContainer>     
             {userInfo ? (
               <NavDropdown title={userInfo.name} id='username'>
                 <LinkContainer to='/profile'>

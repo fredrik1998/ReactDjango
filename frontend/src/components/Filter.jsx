@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 export const StyledNavDropdown = styled(NavDropdown)`
 color: #fff
-`
+`;
 export const FilterByRating = ({setSelectedFilter}) => {
   const [selectedFilter, setSelectedFilterValue] = useState("");
   return (

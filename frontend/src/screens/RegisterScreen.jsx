@@ -24,10 +24,7 @@ cursor: pointer;
 font-size: 13px;
 position: relative;
 margin-top: 30px;
-@media only screen and (max-width: 767px) {
-  width: 75%;
-  margin: 0 auto 30px auto;
-}
+
 &:hover:before {
   left: 80%;
 }

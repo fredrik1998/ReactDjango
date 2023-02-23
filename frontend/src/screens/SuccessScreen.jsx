@@ -1,7 +1,7 @@
 import React, { useState, useEffect} from 'react';
 import styled from 'styled-components'
 import Header from '../components/Header'
-
+import RatingComponent from '../components/RatingComponent';
 import Stripe from 'stripe';
 import axios from 'axios';
 import { loadStripe } from '@stripe/stripe-js';
@@ -101,6 +101,8 @@ return (
         <Header/>
     <Layout>
     <h1 style={{color:'#FFF', textAlign: 'center'}}>Thanks for the order!</h1>
+    <RatingComponent/>
+
    
                 </Layout>
     </SuccessContainer>

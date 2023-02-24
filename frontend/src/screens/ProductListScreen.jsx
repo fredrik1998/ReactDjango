@@ -40,17 +40,18 @@ const ProductListScreen = () => {
   const {userInfo} = userLogin;
 
   useEffect(() => {
-    dispatch({type: PRODUCT_CREATE_RESET})
-
-    if(!userInfo.isAdmin){
-      navigate('/login')
+    dispatch({ type: PRODUCT_CREATE_RESET });
+  
+    if (!userInfo.isAdmin) {
+      navigate('/login');
     }
-    if(successCreate){
-     navigate(`/admin/products/${createdProduct.id}/edit`)
+    if (successCreate) {
+      dispatch(displayProducts());
+      navigate(`/admin/products/${createdProduct.id}/edit`);
     } else {
-      dispatch(displayProducts())
+      dispatch(displayProducts());
     }
-  }, [dispatch, navigate, userInfo, successDelete, successCreate, createProduct]);
+  }, [dispatch, navigate, userInfo, successDelete, successCreate]);
 
   const deleteHandler = (id) => {
     dispatch(deleteProduct(id))
@@ -137,7 +138,4 @@ const ProductListScreen = () => {
     </UsersContainer>
   );
 }
-
-
-
 export default ProductListScreen;

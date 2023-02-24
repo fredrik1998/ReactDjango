@@ -33,12 +33,10 @@ const StyledListGroup = styled(ListGroup)`
 const StyledImage = styled(Image)`
 @media only screen and (max-width: 767px){
   width: 200px;
-
 }
 `
 const OrderItemsH2 = styled.h2`
 margin-left: 10px;
-
 margin-top: 3rem;
 `
 const StyledH2 = styled.h2`

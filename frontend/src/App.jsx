@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import AppPage from './AppPage';
 import Loader from './components/Loader';
 
+
 const CartScreen = lazy(() => import('./screens/CartScreen'));
 const LoginScreen = lazy(() => import('./screens/LoginScreen'));
 const OrderConformationScreen = lazy(() => import('./screens/OrderConformationScreen'));
@@ -16,6 +17,7 @@ const SuccessScreen = lazy(() => import('./screens/SuccessScreen'));
 const UserListScreen = lazy(() => import('./screens/UserListScreen'));
 const ProductListScreen = lazy(() => import('./screens/ProductListScreen'));
 const ProductEditScreen = lazy(() => import('./screens/ProductEditScreen'));
+const UserEditScreen = lazy(() => import('./screens/UserEditScreen'));
 
 function App() {
   return (
@@ -34,6 +36,7 @@ function App() {
       <Route path='/admin/users' element={<UserListScreen />} />
       <Route path='/admin/products' element={<ProductListScreen/>}/>
       <Route path='/admin/products/:id/edit' element={<ProductEditScreen/>}/>
+      <Route path='/admin/user/:userId' element={<UserEditScreen/>}/>
     </Routes>
   );
 }

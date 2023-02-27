@@ -136,9 +136,7 @@ function CartScreen() {
     const checkoutHandler = () => {
         navigate('/login?redirect=shipping')
     }
-    
-    
-    
+
   return (
     <StyledDiv>
     <Layout>

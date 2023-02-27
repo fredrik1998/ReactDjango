@@ -106,14 +106,15 @@ const ProductEditScreen = () => {
         })) 
     }
 
-    const uploadImageHandler = (e) => {
+    const uploadImageHandler = async (e) => {
       setUploading(true);
-
+    
       const file = e.target.files[0];
-      dispatch(uploadProductImage(file, id));
+      await dispatch(uploadProductImage(file, id));
       
       setUploading(false);
-  };
+    };
+    
     return (
         <div className='wrapper-login'>
             <Layout>

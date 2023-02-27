@@ -47,6 +47,8 @@ const StyledButton = styled(Button)`
 function LoginScreen() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [formErrors, setFormErrors] = useState({})
+    const [isDisabled, setIsDisabled] = useState(true);
 
     const navigate = useNavigate()
 
@@ -54,7 +56,20 @@ function LoginScreen() {
 
     const submitHandler = (e) => {
         e.preventDefault();
-        dispatch(login(email, password));
+        const errors = {};
+
+        if(!email){
+          errors.email = 'Email is required'
+        }
+
+        if(!password){
+          errors.password = 'Password is required'
+        }
+
+        setFormErrors(errors);
+        if(Object.keys(errors).length === 0){
+          dispatch(login(email, password));
+        }
     };
     
     const redirect = location.search ? location.search.split('=')[1] : '/'
@@ -68,6 +83,10 @@ function LoginScreen() {
         }
 
     },[navigate, userInfo, redirect])
+
+    useEffect(() => {
+      setIsDisabled(Object.keys(formErrors).length > 0)
+    }, [formErrors])
 
   return (
     <div className='wrapper-login'>
@@ -84,8 +103,10 @@ function LoginScreen() {
             type='email'
             placeholder='Enter email'
             value={email}
+            isInvalid = {!!formErrors.email}
             onChange={(e) => setEmail(e.target.value)}
             ></Form.Control>
+            <Form.Control.Feedback type='invalid'>{formErrors.email}</Form.Control.Feedback>
         </Form.Group>
 
         <Form.Group controlId='password'>
@@ -94,8 +115,10 @@ function LoginScreen() {
             type='password'
             placeholder='Enter password'
             value={password}
+            isInvalid={!!formErrors.password}
             onChange={(e) => setPassword(e.target.value)}
             ></Form.Control>
+            <Form.Control.Feedback type='invalid'>{formErrors.password}</Form.Control.Feedback>
         </Form.Group>
 
         <StyledButton type='submit' variant='primary'>

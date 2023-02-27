@@ -42,6 +42,8 @@ const [email, setEmail] = useState('');
 const [password, setPassword] = useState('');
 const [confirmPassword, setConfirmPassword] = useState('');
 const [message, setMessage] = useState();
+const [formErrors, setFormErrors] = useState({});
+const [isDisabled, setIsDisabled] = useState(true);
 const navigate = useNavigate()
 
 const dispatch = useDispatch()
@@ -49,10 +51,32 @@ const dispatch = useDispatch()
 const submitHandler = (e) => {
     e.preventDefault();
     
+    const errors = {};
+
+    if(!name){
+      errors.name = 'Name is required'
+    }
+
+    if(!email){
+      errors.email = 'Email is required'
+    }
+
+    if(!password){
+      errors.password = 'Password is required'
+    }
+
+    if(!confirmPassword){
+      errors.confirmPassword = 'Password is Required'
+    }
+
+    setFormErrors(errors)
+    
     if(password != confirmPassword){
         setMessage('Password do not match')
     } else{
-        dispatch(register(name, email, password));
+        if(Object.keys(errors).length === 0){
+          dispatch(register(name, email, password));
+        }
     }
 };
 const redirect = location.search ? location.search.split('=')[1] : '/'
@@ -63,11 +87,12 @@ const {error, loading, userInfo} = userRegister
 
 
 useEffect(()=> {
+  setIsDisabled(Object.keys(formErrors) > 0);
     if(userInfo){
         navigate(redirect)
     }
 
-},[navigate, userInfo, redirect])
+},[navigate, userInfo, redirect, formErrors])
   
   return (
     <div className='wrapper-login'>
@@ -83,45 +108,49 @@ useEffect(()=> {
     <Form.Group controlId='name'>
             <Form.Label>Name</Form.Label>
             <Form.Control 
-            required
             type='name'
             placeholder='Enter name'
             value={name}
             onChange={(e) => setName(e.target.value)}
+            isInvalid = {!!formErrors.name}
             ></Form.Control>
+            <Form.Control.Feedback type='invalid'>{formErrors.name}</Form.Control.Feedback>
         </Form.Group>
 
     <Form.Group controlId='email'>
             <Form.Label>Email Adress</Form.Label>
             <Form.Control 
-            required
             type='email'
             placeholder='Enter email'
             value={email}
+            isInvalid={!!formErrors.email}
             onChange={(e) => setEmail(e.target.value)}
             ></Form.Control>
+            <Form.Control.Feedback type='invalid'>{formErrors.email}</Form.Control.Feedback>
         </Form.Group>
 
     <Form.Group controlId='password'>
             <Form.Label>Password</Form.Label>
             <Form.Control 
-            required
             type='password'
             placeholder='Enter password'
+            isInvalid={!!formErrors.password}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             ></Form.Control>
+            <Form.Control.Feedback type='invalid'>{formErrors.password}</Form.Control.Feedback>
         </Form.Group>
 
     <Form.Group controlId='passwordConfirm'>
             <Form.Label>Confirm Password</Form.Label>
             <Form.Control 
-            required
             type='password'
             placeholder='Confirm password'
+            isInvalid={!!formErrors.confirmPassword}
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             ></Form.Control>
+            <Form.Control.Feedback type='invalid'>{formErrors.confirmPassword}</Form.Control.Feedback>
         </Form.Group>                
         <StyledButton type='submit' variant='primary'>
             Sign up

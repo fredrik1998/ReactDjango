@@ -11,11 +11,11 @@ import Layout from '../components/layout';
 import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants';
 import styled from 'styled-components';
 import { listMyOrders } from '../actions/orderActions';
+
 const StyledDiv = styled.div`
-background-color: #202020;
+background-color: #1a1a1a;
 color: #FFF;
 `
-
 const StyledH2 = styled.h2`
 color: #fff;
 margin-top: 20px;
@@ -31,21 +31,15 @@ margin-top: 0px
 `
 const StyledButton = styled(Button)`
 width: 100%;
-background: none;
-border: 4px solid;
-color: #52ffa8;
+color: #121212;
+border-radius: 18px;
+background-color: hsl(178, 50%, 51%);
 font-weight: 700;
-
 text-transform: uppercase;
 cursor: pointer;
 font-size: 13px;
 position: relative;
 margin-top: 40px;
-
-@media only screen and (max-width: 767px) {
-  width: 45%;
- 
-}
 &:hover:before {
   left: 80%;
 }
@@ -53,15 +47,16 @@ margin-top: 40px;
   right: 80%;
 }
 &:hover {
-  background: #52ffa8;
-  color: #000;
+  background-color: hsl(178, 50%, 51%);
+  color: #fafafa;
 }`;
 
 const DetailsButton = styled(Button)`
 width: 100%;
-background: none;
+color: #121212;
 border: 4px solid;
-color: #52ffa8;
+border-radius: 18px;
+background-color: hsl(178, 50%, 51%);
 font-weight: 700;
 text-transform: uppercase;
 cursor: pointer;
@@ -74,8 +69,8 @@ position: relative;
   right: 80%;
 }
 &:hover {
-  background: #52ffa8;
-  color: #000;
+  background-color: hsl(178, 50%, 51%);
+  color: #fafafa;
 }
 `;
 
@@ -170,9 +165,6 @@ const ProfileScreen = () => {
       }
     };
     
-    
-
-
   return (
     <StyledDiv>
     <Layout>
@@ -228,10 +220,10 @@ const ProfileScreen = () => {
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             ></Form.Control>
-        </Form.Group>                
-        <StyledButton type='submit' variant='primary'>
+            <StyledButton type='submit' variant='primary'>
             Update
         </StyledButton>
+        </Form.Group>                
         <Row className='py-3'>
        
     </Row>   

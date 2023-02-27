@@ -62,7 +62,7 @@ const StyledP = styled.p`
 const RatingP = styled.p`
   font-size: 16px;
   margin-left: 20px;
-  color: hsl(25, 97%, 53%);
+  color: hsl(178, 50%, 51%);
   background-color: hsl(213, 19%, 18%);
   border-radius: 18px;
   padding-top: 10px;
@@ -73,10 +73,10 @@ const RatingP = styled.p`
 `
 const StyledButton = styled.button`
   width: 90%;
-  background: hsl(25, 97%, 53%);
+  background-color:hsl(178, 50%, 51%);
+  border: 4px solid;
   border-radius: 18px;
-  border: none;
-  color: #FFF;
+  color: #121212;
   font-weight: 700;
   height: 55px;
   text-transform: uppercase;
@@ -91,8 +91,7 @@ const StyledButton = styled.button`
     right: 80%;
   }
   &:hover {
-    background: #FFF;
-    color: hsl(25, 97%, 53%);
+    background-color:hsl(178, 50%, 51%);
   }
   @media screen and (max-width: 600px){
     width: 75%;
@@ -106,9 +105,9 @@ const ActiveButton = styled.button`
   padding-top: 10px;
   border: none;
   padding-bottom: 10px;
-  background-color: ${({ active }) => active ? 'hsl(25, 97%, 53%)' : 'hsl(213, 19%, 18%)'};
+  background-color: ${({ active }) => active ? '	hsl(178, 50%, 51%)' : '	hsl(0, 0%, 10%)'};
   font-size: 1.4em;
-  color: ${({ active }) => active ? 'hsl(0, 0%, 100%)' : 'hsl(216, 12%, 54%)'};
+  color: ${({ active }) => active ? '	hsl(0, 0%, 7%)' : '	hsl(0, 0%, 98%)'};
   cursor: pointer;
   @media only screen and (max-width: 375px){
     padding-top: 0px;

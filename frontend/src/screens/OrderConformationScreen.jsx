@@ -49,7 +49,6 @@ color: #fff;
     
   }
 `;
-
 const StyledH2 = styled.h2`
 margin-top: 3rem;
 color: #fff;
@@ -71,21 +70,12 @@ const StyledCard = styled(Card)`
 margin-top: 50px;
 border: none;`
 
-const StyledButton = styled(Button)`
-width: 100%;
-color: #000;
-background-color: #52ffa8;
-box-shadow: 5px #000;
-padding: 10px;
-border-radius: 10px;
-margin-top: 30px;
-`
 const StyledImage = styled(Image)`
 @media only screen and (max-width: 767px){
   width: 200px;
-
 }
 `
+
 const OrderConformationScreen = () => {
   const { orderId } = useParams()
   const dispatch = useDispatch()
@@ -165,12 +155,13 @@ const token = auth && auth.userInfo && auth.userInfo.token;
                     <strong>Method: </strong>
                     {order.paymentMethod}
                   </p>
-
+                
                   {order.isPaid ? (
     <Message variant='success'>Paid on {new Date(order.paidAt).toLocaleString('en-US', {year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'})}</Message>
 ) : (
     <Message variant='warning'>Not Paid</Message>
 )}
+
 
                 </ListGroup.Item>
               </StyledListGroup>

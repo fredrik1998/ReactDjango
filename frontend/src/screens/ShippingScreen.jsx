@@ -15,19 +15,14 @@ color: #fff;
 const ProceedButton = styled(Button)`
 width: 100%;
 background: none;
-border: 4px solid;
-color: #52ffa8;
+background-color: #45c1bc;
+color: #121212;
+border-radius: 18px;
 font-weight: 700;
 text-transform: uppercase;
 cursor: pointer;
 font-size: 13px;
 margin-top: 40px;
-
-
-@media only screen and (max-width: 767px) {
-  width: 100%;
-  
-}
 &:hover:before {
   left: 80%;
 }
@@ -35,17 +30,17 @@ margin-top: 40px;
   right: 80%;
 }
 &:hover {
-  background: #52ffa8;
-  color: #000;
+  background: #45c1bc;
+  color: #fafafa;
+  scale: 1.02;
+ 
 }`;
-
 
 const StyledFormControl = styled(Form)`
 width: 100%;
 .form-control{
     background-color: #1a1a1a;
-    width: 100px;
-    
+    width: 100px; 
 }
 `
 const ShippingScreen = () => {
@@ -154,7 +149,6 @@ const ShippingScreen = () => {
         </Form.Group>
 
         <ProceedButton type='submit' variant='primary'>Proceed</ProceedButton>
-
         </Form>
     </FormContainer>
     </Layout>

@@ -52,11 +52,13 @@ border: none;`
 
 const StyledButton = styled(Button)`
 width: 100%;
+max-width: 350px;
 background: none;
 border: 4px solid;
-color: #52ffa8;
+color: #121212;
+border-radius: 18px;
 font-weight: 700;
-
+background-color: hsl(178, 50%, 51%);
 text-transform: uppercase;
 cursor: pointer;
 font-size: 13px;
@@ -69,8 +71,8 @@ margin-top: 30px;
   right: 80%;
 }
 &:hover {
-  background: #52ffa8;
-  color: #000;
+  background-color: hsl(178, 50%, 51%);
+  color: #121212;
 }`;
 
 const OrderScreen = () => {

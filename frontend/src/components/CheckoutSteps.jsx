@@ -14,7 +14,7 @@ const StyledNav = styled(Nav)`
     flex: 1;
     text-align: center;
     .nav-link {
-      color: #52ffa8;
+      color: hsl(178, 50%, 51%);
 
       @media (max-width: 768px) { /* change font-size on smaller screens */
       font-size: 0.8rem;

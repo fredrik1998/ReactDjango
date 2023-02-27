@@ -30,9 +30,13 @@ const StyledCardElement = styled(CardElement)`
 
 const StyledButton = styled(Button)`
   width: 100%;
+  max-width: 350px;
+  margin: auto;
   background: none;
   border: 4px solid;
-  color: #52ffa8;
+  background-color:#45c1bc;
+  color: #121212;
+  border-radius: 18px;
   font-weight: 700;
   text-transform: uppercase;
   cursor: pointer;
@@ -50,8 +54,8 @@ const StyledButton = styled(Button)`
     right: 80%;
   }
   &:hover {
-    background: #52ffa8;
-    color: #000;
+    background-color:#45c1bc;
+    color: #121212;
   }
   @media only screen and (max-width: 767px) {
     margin-top: 25px;

@@ -18,6 +18,13 @@ import { PRODUCT_LIST_FAIL,
          PRODUCT_UPDATE_SUCCESS,
          PRODUCT_UPDATE_FAIL,
          PRODUCT_UPDATE_RESET,
+         PRODUCT_REVIEW_REQUEST,
+         PRODUCT_REVIEW_SUCCESS,
+         PRODUCT_REVIEW_FAIL,
+         PRODUCT_REVIEW_RESET,
+         PRODUCT_IMAGE_UPLOAD_REQUEST,
+         PRODUCT_IMAGE_UPLOAD_SUCCESS,
+         PRODUCT_IMAGE_UPLOAD_FAIL  
        }
      from "../constants/productConstants"
 
@@ -107,6 +114,25 @@ export const productListReducer = (state ={products: [], error: null, loading: f
     }
   }
 
+  export const productReviewReducer = (state = {},  action) =>{
+    switch(action.type){
+      case PRODUCT_REVIEW_REQUEST:
+        return {...state, loading: true,}
+  
+      case PRODUCT_REVIEW_SUCCESS:
+        return {...state, loading: false, success: true}
+  
+      case PRODUCT_REVIEW_FAIL:
+        return {...state, loading: false, error: action.payload}
+
+      case PRODUCT_REVIEW_RESET:
+        return {};
+  
+      default: 
+        return state
+    }
+  }
+
 
   export const productTopRatedReducer = (state ={products:[]},  action) =>{
     switch(action.type){
@@ -123,6 +149,22 @@ export const productListReducer = (state ={products: [], error: null, loading: f
         return state
     }
   }
+
+  export const productImageUploadReducer = (state = { }, action) => {
+    switch (action.type) {
+        case PRODUCT_IMAGE_UPLOAD_REQUEST:
+            return { loading: true };
+ 
+        case PRODUCT_IMAGE_UPLOAD_SUCCESS:
+            return { loading: false, success: true };
+ 
+        case PRODUCT_IMAGE_UPLOAD_FAIL:
+            return { loading: false, error: action.payload };
+ 
+        default:
+            return state;
+    }
+};
 
   
 

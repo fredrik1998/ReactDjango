@@ -26,9 +26,10 @@ border-radius:18px;
 
 const StyledButton = styled(Button)`
   width: 100%;
-  background: none;
+  color: #121212;
   border: 4px solid;
-  color: #52ffa8;
+  border-radius: 18px;
+  background-color: hsl(178, 50%, 51%);
   font-weight: 700;
   font-family: "Montserrat", sans-serif;
   text-transform: uppercase;
@@ -43,8 +44,8 @@ const StyledButton = styled(Button)`
     right: 80%;
   }
   &:hover {
-    background: #52ffa8;
-    color: #000;
+    background-color: hsl(178, 50%, 51%);
+    color: #fafafa;
   }
  
 `;

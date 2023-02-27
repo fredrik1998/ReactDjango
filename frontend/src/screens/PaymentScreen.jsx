@@ -12,16 +12,15 @@ import CheckoutSteps from '../components/CheckoutSteps';
 const ProceedButton = styled(Button)`
 width: 100%;
 background: none;
-border: 4px solid;
-color: #52ffa8;
+background-color:#45c1bc;
+border-radius: 18px;
+color: #121212;
 font-weight: 700;
-
 text-transform: uppercase;
 cursor: pointer;
 font-size: 13px;
 position: relative;
 margin-top: 40px;
-
 &:hover:before {
   left: 80%;
 }
@@ -29,8 +28,8 @@ margin-top: 40px;
   right: 80%;
 }
 &:hover {
-  background: #52ffa8;
-  color: #000;
+  background-color:#45c1bc;
+  color: #121212;
 }`;
 
 

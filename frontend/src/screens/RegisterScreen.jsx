@@ -14,11 +14,11 @@ color: #fff;`
 
 const StyledButton = styled(Button)`
 width: 100%;
-background: none;
+color: #121212;
+border-radius: 18px;
 border: 4px solid;
-color: #52ffa8;
+background-color: hsl(178, 50%, 51%);
 font-weight: 700;
-
 text-transform: uppercase;
 cursor: pointer;
 font-size: 13px;
@@ -32,12 +32,12 @@ margin-top: 30px;
   right: 80%;
 }
 &:hover {
-  background: #52ffa8;
-  color: #000;
+  background-color: hsl(178, 50%, 51%);
+  color: #fafafa;
 }`;
 
-function RegisterScreen() {
- const [name, setName] = useState('');
+const RegisterScreen = () => {
+const [name, setName] = useState('');
 const [email, setEmail] = useState('');
 const [password, setPassword] = useState('');
 const [confirmPassword, setConfirmPassword] = useState('');

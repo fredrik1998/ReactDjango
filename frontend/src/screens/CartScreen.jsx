@@ -35,10 +35,7 @@ color: #FFF;
 border: none;
 }`
 
-const StyledImage = styled(Image)`
-@media only screen and (max-width: 767px){
-  width: 300px;
-}`
+
 const StyledListGroup = styled(ListGroup)`
   .list-group-item {
     background-color: #1a1a1a;
@@ -48,13 +45,17 @@ const StyledListGroup = styled(ListGroup)`
 
 const CheckoutButton = styled(Button)`
   width: 100%;
+  max-width: 350px;
   background: none;
   border: 4px solid;
-  color: #52ffa8;
+  background-color: #45c1bc;
+  transition: all: 0.3s;
+  border-radius: 18px;
+  color: #121212;
   font-weight: 700;
   text-transform: uppercase;
   cursor: pointer;
-  font-size: clamp(13px, 3.5vw, 16px);
+  font-size: 13px;
   position: relative;
   margin-top: 40px;
 
@@ -65,8 +66,8 @@ const CheckoutButton = styled(Button)`
     right: 80%;
   }
   &:hover {
-    background: #52ffa8;
-    color: #000;
+    background-color: #45c1bc;
+    scale: 1.02;
   }
 
   @media only screen and (max-width: 767px) {
@@ -106,13 +107,9 @@ const DeleteButton = styled(Button)`
   @media (max-width: 767px) {
     width: 10px;
   }
-
 `
 const P = styled.p`
 margin-bottom: 30px;`
-
-const StyledCol = styled(Col)`
-`
 
 function CartScreen() {
     const {id} = useParams()
@@ -159,16 +156,16 @@ function CartScreen() {
                     {cartItems.map(item => (
                         <ListGroup.Item key={item.product}>
                             <StyledRow>
-                                <StyledCol md={2}>
-                                    <StyledImage src={item.image} alt={item.name} fluid rounded></StyledImage>
-                                </StyledCol>
-                                <StyledCol md={3}>
+                                <Col md={2}>
+                                    <Image src={item.image} alt={item.name} fluid rounded></Image>
+                                </Col>
+                                <Col md={3}>
                                     <StyledLink to={`/product/${item.product}`}>{item.name}</StyledLink>
-                                </StyledCol>
-                                <StyledCol md={2}>
+                                </Col>
+                                <Col md={2}>
                                 ${item.price}   
-                                </StyledCol>
-                                <StyledCol md={3}>
+                                </Col>
+                                <Col md={3}>
                                 <div className="d-flex align-items-center">
                               
   <CartButton
@@ -194,7 +191,7 @@ function CartScreen() {
   
 </div>
 
-                                </StyledCol>
+                                </Col>
                               
                             </StyledRow>
                         </ListGroup.Item>

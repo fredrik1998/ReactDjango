@@ -6,13 +6,11 @@ import { displayProducts } from "../actions/productActions";
 import Loader from "../components/Loader";
 import Message from "../components/message";
 import Header from "../components/Header";
-import ProductCarousel from "../components/ProductCarousel";
 import { FilterByPrice, FilterByCategory, FilterByBrand, FilterByRating} from "../components/Filter";
 import styled from 'styled-components'
 
 const StyledDiv = styled.div`
 display: flex;
-
 `
 const HomeScreen = () => {
   const dispatch = useDispatch();

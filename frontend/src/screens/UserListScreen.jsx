@@ -88,21 +88,19 @@ const UserListScreen = () => {
         <td>
           <div className="d-flex align-items-center">
             <LinkContainer to={`/admin/user/${user.id}`}>
-              <StyledButton variant="light" className="btn-sm">
+              <StyledButton  className="btn">
                 <i className="fas fa-edit"></i>
               </StyledButton>
             </LinkContainer>
             <StyledButton
               onClick={() => deleteHandler(user.id)}
-              variant="danger"
-              className="btn-sm ml-2 d-none d-md-block"
+              className="btn ml-2 d-none d-md-block"
             >
               <i className="fas fa-trash"></i>
             </StyledButton>
             <StyledButton
               onClick={() => deleteHandler(user.id)}
-              variant="danger"
-              className="btn-sm d-block d-md-none"
+              className="btn d-block d-md-none"
             >
               Delete
             </StyledButton>

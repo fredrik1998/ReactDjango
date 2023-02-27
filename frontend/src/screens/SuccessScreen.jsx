@@ -74,15 +74,6 @@ const StyledCard = styled(Card)`
 margin-top: 50px;
 border: none;`
 
-const StyledButton = styled(Button)`
-width: 100%;
-color: #000;
-background-color: #52ffa8;
-box-shadow: 5px #000;
-padding: 10px;
-border-radius: 10px;
-margin-top: 30px;
-`
 const StyledImage = styled(Image)`
 @media only screen and (max-width: 767px){
   width: 200px;

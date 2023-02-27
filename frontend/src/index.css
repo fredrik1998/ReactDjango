@@ -84,7 +84,7 @@ h2{
   display: inline-block;
   width: 1.5rem;
   height: 1.5rem;
-  background: #52ffa8;
+  background-color: hsl(178, 50%, 51%);
   color: #000;
   padding: 0.2rem;
   border-radius: 50%;

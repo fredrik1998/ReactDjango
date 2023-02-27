@@ -9,7 +9,7 @@ import Layout from '../components/layout'
 import FormContainer from '../components/FormContainer'
 import { listUsers, profile, update } from '../actions/userActions'
 import { USER_UPDATE_PROFILE_RESET} from '../constants/userConstants'
-import { createProduct, displayProducts, displayProductsDetails, updateProduct  } from '../actions/productActions'
+import { createProduct, displayProducts, displayProductsDetails, updateProduct, uploadProductImage  } from '../actions/productActions'
 import { PRODUCT_UPDATE_RESET } from '../constants/productConstants'
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components';
@@ -29,9 +29,10 @@ border-radius:18px;
 
 const StyledButton = styled(Button)`
   width: 100%;
-  background: none;
+  color: #121212;
   border: 4px solid;
-  color: #52ffa8;
+  border-radius: 18px;
+  background-color: hsl(178, 50%, 51%);
   font-weight: 700;
   font-family: "Montserrat", sans-serif;
   text-transform: uppercase;
@@ -46,13 +47,12 @@ const StyledButton = styled(Button)`
     right: 80%;
   }
   &:hover {
-    background: #52ffa8;
-    color: #000;
+    background-color: hsl(178, 50%, 51%);
+    color: #fafafa;
   }
 `;
 
 const ProductEditScreen = () => {
-
     const {id} = useParams()
     const [name, setName] = useState('')
     const [price, setPrice] = useState(0)
@@ -103,34 +103,17 @@ const ProductEditScreen = () => {
           category,
           countInStock,
           description
-        }))
-        
+        })) 
     }
 
-    const uploadImageHandler = async (e) => {
-      const file = e.target.files[0];
-      const formData = new FormData();
-      formData.append('image', file);
-      formData.append('product.id', id);
+    const uploadImageHandler = (e) => {
       setUploading(true);
-      try {
-        const config = {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
-        }
-    
-        const { data } = await axios.post(`http://localhost:8000/api/products/upload/`, formData, config);
-        setImage(data);
-        setUploading(false);
-    
-      } catch (error) {
-        console.error(error);
-        setUploading(false);
-      }
-    };
-    
 
+      const file = e.target.files[0];
+      dispatch(uploadProductImage(file, id));
+      
+      setUploading(false);
+  };
     return (
         <div className='wrapper-login'>
             <Layout>
@@ -177,22 +160,20 @@ const ProductEditScreen = () => {
                                 >
                                 </Form.Control>
                             </Form.Group>
+
                             <Form.Group controlId="formFile">
 
-<Form.Label>Image</Form.Label>
+                            <Form.Label>Image</Form.Label>
 
-<Form.Control
-
-    type="file"
-
-    onChange={uploadImageHandler}
-
-/>
-
-{uploading && <Loader />}
-
-</Form.Group>
-
+                            <Form.Control
+                                type="file"
+                                onChange={uploadImageHandler}
+                                custom
+                            />
+                            {uploading && <Loader />}
+                        </Form.Group>
+                            
+                           
                             <Form.Group controlId='category'>
                                 <Form.Label>Category</Form.Label>
                                 <Form.Control

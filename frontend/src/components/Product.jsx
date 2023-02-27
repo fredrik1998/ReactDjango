@@ -19,6 +19,8 @@ const StyledImage = styled(Card.Img)`
   background-color: transparent;
 `;
 
+
+
 const Product = ({ product }) => {
   return (
     <motion.div

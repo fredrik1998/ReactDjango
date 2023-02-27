@@ -20,8 +20,27 @@ justify-content: center;
 text-align: center;
 color: #FFF;`
 
-const StyledButton = styled(Button)`
+const EditButton = styled(Button)`
 border-radius: 18px;
+
+`
+const DeleteButton = styled(Button)`
+border-radius: 18px;
+color: #fff;
+
+`
+const CreateButton = styled(Button)`
+ border: 4px solid;
+ color: #121212;
+ background-color: hsl(178, 50%, 51%);
+ border-radius: 18px;
+ font-size: 13px;
+ font-weight: 700;
+ &:hover{
+  background-color: hsl(178, 50%, 51%);
+  color: #fafafa;
+ }
+
 `
 const ProductListScreen = () => {
   const dispatch = useDispatch();
@@ -69,9 +88,9 @@ const ProductListScreen = () => {
             <StyledH1>Products</StyledH1>
             </Col>
             <Col className='text-right'>
-            <StyledButton onClick={createProductHandler}>
+            <CreateButton onClick={createProductHandler}>
                <i className='fas fa-plus'></i>Create Product 
-            </StyledButton>
+            </CreateButton>
             </Col>
         </Row>
         {loadingDelete && <Loader/>}
@@ -108,24 +127,24 @@ const ProductListScreen = () => {
         <td>
           <div className="d-flex align-items-center">
             <LinkContainer to={`/admin/products/${product.id}/edit`}>
-              <StyledButton variant="light" className="btn-sm">
+              <EditButton  className="btn">
                 <i className="fas fa-edit"></i>
-              </StyledButton>
+              </EditButton>
             </LinkContainer>
-            <StyledButton
+            <DeleteButton
               onClick={() => deleteHandler(product.id)}
-              variant="danger"
-              className="btn-sm ml-2 d-none d-md-block"
+              
+              className="btn ml-2 d-none d-md-block"
             >
               <i className="fas fa-trash"></i>
-            </StyledButton>
-            <StyledButton
+            </DeleteButton>
+            <DeleteButton
               onClick={() => deleteHandler(product.id)}
               variant="danger"
-              className="btn-sm d-block d-md-none"
+              className="btn d-block d-md-none"
             >
               Delete
-            </StyledButton>
+            </DeleteButton>
           </div>
         </td>
       </tr>

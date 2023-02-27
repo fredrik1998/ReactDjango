@@ -17,6 +17,13 @@ import {
     PRODUCT_UPDATE_REQUEST,
     PRODUCT_UPDATE_SUCCESS,
     PRODUCT_UPDATE_FAIL,
+    PRODUCT_REVIEW_REQUEST,
+    PRODUCT_REVIEW_SUCCESS,
+    PRODUCT_REVIEW_FAIL,
+    PRODUCT_IMAGE_UPLOAD_REQUEST,
+    PRODUCT_IMAGE_UPLOAD_SUCCESS,
+    PRODUCT_IMAGE_UPLOAD_FAIL,
+
     } from "../constants/productConstants"
 import axios from "axios"
 
@@ -190,3 +197,73 @@ export const updateProduct = (product) => async(dispatch, getState) => {
   })
  }
 }
+
+export const createReview = (id, review) => async(dispatch, getState) => {
+  try{
+  dispatch({type: PRODUCT_REVIEW_REQUEST});
+
+  const {
+      userLogin: {userInfo},
+  } = getState()
+
+  const config = {
+      headers: {
+          'Content-type':'application/json',
+          Authorization: `Bearer ${userInfo.token}`
+      }
+  }
+  const {data} = await axios.post(
+      `http://localhost:8000/api/products/${id}/reviews/`,
+      review,
+      config
+  );
+
+  dispatch({
+      type: PRODUCT_REVIEW_SUCCESS,
+      payload: data
+  });
+
+}
+ catch(error){
+  dispatch({
+      type: PRODUCT_REVIEW_FAIL,
+      payload:
+      error.response && error.response.data.detail
+              ? error.response.data.detail
+              : error.message,
+  })
+ }
+}
+
+export const uploadProductImage = (file, id) => async (dispatch) => {
+  try {
+      
+      const formData = new FormData();
+      formData.append("image", file);
+      formData.append("product.id", id);
+
+      dispatch({ type: PRODUCT_IMAGE_UPLOAD_REQUEST });
+
+      const config = {
+          headers: {
+              "Content-Type": "multipart/form-data",
+          },
+      };
+
+      const { data } = await axios.post(
+          "http://localhost:8000/api/products/upload/",
+          formData,
+          config
+      );
+
+      dispatch({
+          type: PRODUCT_IMAGE_UPLOAD_SUCCESS,
+          payload: data,
+      });
+  } catch (error) {
+      dispatch({
+          type: PRODUCT_IMAGE_UPLOAD_FAIL,
+          payload: error.response,
+      });
+  }
+};

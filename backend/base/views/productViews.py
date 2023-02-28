@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from rest_framework.response import Response
 from ..products import products
 from decimal import Decimal
-from ..models import Product
+from ..models import Product, Review
 from ..serializer import ProductSerializer, UserSerializer, UserSerializerWithToken
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -67,12 +67,51 @@ def updateProduct(request, pk):
 @api_view(['POST'])
 def uploadImage(request):
     data = request.data
-    product.id = data['product.id']  
-    product = Product.objects.get(id=product.id)
+    product_id = data['product.id']
+    product = Product.objects.get(id=product_id)
+
     product.image = request.FILES.get('image')
     product.save()
+
     return Response('Image was uploaded')
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])   
+def createProductReview(request, pk):
+    user = request.user
+    data= request.data
+    product = Product.objects.get(id=pk)
+
+    reviewExists = product.review_set.filter(user=user).exists()
+
+    if reviewExists:
+        content = {'detail' : 'Product is already reviewed'}
+        return Response(content, status=status.HTTP_400_BAD_REQUEST)
     
+    elif data['rating'] == 0:
+        content = {'detail' : 'Please select a rating'}
+        return Response(content, status=status.HTTP_400_BAD_REQUEST)
+    
+    else:
+        review = Review.objects.create(
+            user=user,
+            product=product,
+            name=user.first_name,
+            rating=data['rating'],
+            comment=data['comment'],
+        )
+        reviews = Review.objects.filter(product=product)
+        product.numReviews = len(reviews)
+
+        total = 0
+        for i in reviews:
+            total += i.rating
+        product.rating = total / len(reviews)
+        product.save()
+        return Response({'Review Added'})
+
+
 @api_view(['DELETE'])
 @permission_classes([IsAdminUser])
 def deleteProduct(request, pk):

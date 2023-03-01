@@ -31,7 +31,7 @@ export const displayProducts = () => async (dispatch) => {
     try {
       dispatch({ type: PRODUCT_LIST_REQUEST });
   
-      const { data } = await axios.get("http://localhost:8000/api/products/");
+      const { data } = await axios.get("/api/products/");
   
       dispatch({
         type: PRODUCT_LIST_SUCCESS,
@@ -52,7 +52,7 @@ export const displayProducts = () => async (dispatch) => {
     try {
       dispatch({ type: PRODUCT_DETAILS_REQUEST });
   
-      const { data } = await axios.get(`http://localhost:8000/api/products/${id}`);
+      const { data } = await axios.get(`/api/products/${id}`);
   
       dispatch({
         type: PRODUCT_DETAILS_SUCCESS,
@@ -73,7 +73,7 @@ export const displayProducts = () => async (dispatch) => {
     try {
       dispatch({ type: PRODUCT_TOP_REQUEST });
   
-      const { data } = await axios.get(`http://localhost:8000/api/products/top/`);
+      const { data } = await axios.get(`/api/products/top/`);
   
       dispatch({
         type: PRODUCT_TOP_SUCCESS,
@@ -105,7 +105,7 @@ export const displayProducts = () => async (dispatch) => {
         }
     }
     const {data} = await axios.delete(
-        `http://localhost:8000/api/products/delete/${id}`,
+        `/api/products/delete/${id}`,
         config
     );
 
@@ -139,7 +139,7 @@ export const createProduct = () => async(dispatch, getState) => {
       }
   }
   const {data} = await axios.post(
-      `http://localhost:8000/api/products/create/`,
+      `/api/products/create/`,
       {},
       config
   );
@@ -175,7 +175,7 @@ export const updateProduct = (product) => async(dispatch, getState) => {
       }
   }
   const {data} = await axios.put(
-      `http://localhost:8000/api/products/update/${product.id}/`,
+      `/api/products/update/${product.id}/`,
       product,
       config
   );
@@ -213,7 +213,7 @@ export const createReview = (id, review) => async(dispatch, getState) => {
       }
   }
   const {data} = await axios.post(
-      `http://localhost:8000/api/products/${id}/reviews/`,
+      `/api/products/${id}/reviews/`,
       review,
       config
   );
@@ -251,7 +251,7 @@ export const uploadProductImage = (file, id) => async (dispatch) => {
       };
 
       const { data } = await axios.post(
-          "http://localhost:8000/api/products/upload/",
+          "/api/products/upload/",
           formData,
           config
       );

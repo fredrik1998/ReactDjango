@@ -35,7 +35,7 @@ export const login = (email, password) => async(dispatch) =>{
             }
         }
         const {data} = await axios.post(
-            "http://localhost:8000/api/users/login/",
+            "/api/users/login/",
             {'username': email, 'password': password}, config
             );
             
@@ -75,7 +75,7 @@ export const register = (name, email, password) => async(dispatch) => {
         }
     }
     const {data} = await axios.post(
-        "http://localhost:8000/api/users/register/",
+        "/api/users/register/",
         {'name': name, 'email': email, 'password': password}, config
     );
 
@@ -115,7 +115,7 @@ export const profile = (id) => async(dispatch, getState) => {
         }
     }
     const {data} = await axios.get(
-        `http://localhost:8000/api/users/${id}`,
+        `/api/users/${id}`,
          config
     );
 
@@ -150,7 +150,7 @@ export const update = (user) => async(dispatch, getState) => {
         }
     }
     const {data} = await axios.put(
-        "http://localhost:8000/api/users/profile/update/",
+        "/api/users/profile/update/",
         user,
         config
     );
@@ -194,7 +194,7 @@ export const listUsers = () => async (dispatch, getState) => {
         },
       };
       const { data } = await axios.get(
-        'http://localhost:8000/api/users/',
+        '/api/users/',
         config
       );
   
@@ -228,7 +228,7 @@ export const listUsers = () => async (dispatch, getState) => {
         },
       };
       const { data } = await axios.delete(
-        `http://localhost:8000/api/users/delete/${id}`,
+        `/api/users/delete/${id}`,
         config
       );
   

@@ -100,7 +100,7 @@ useEffect(() => {
   const fetchClientSecret = async () => {
     try {
       const { data } = await axios.post(
-        'http://localhost:8000/api/payments/create-payment/',
+        '/api/payments/create-payment/',
         { cancelToken: cancelToken.token }
       );
       const { client_secret } = data;

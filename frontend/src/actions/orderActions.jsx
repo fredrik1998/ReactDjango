@@ -32,7 +32,7 @@ export const createOrder = (order) => async(dispatch, getState) => {
         }
     }
     const {data} = await axios.post(
-        `http://localhost:8000/api/orders/add/`,
+        `/api/orders/add/`,
         order,
         config
     );
@@ -75,7 +75,7 @@ export const getOrderDetails = (id) => async(dispatch, getState) => {
         }
     }
     const {data} = await axios.get(
-        `http://localhost:8000/api/orders/${id}/`,
+        `/api/orders/${id}/`,
         config
     );
 
@@ -110,7 +110,7 @@ export const updateOrderToPaid = (id, paidAt) => async(dispatch, getState) => {
         }
     }
     const {data} = await axios.put(
-        `http://localhost:8000/api/orders/${id}/pay/`,
+        `/api/orders/${id}/pay/`,
         { paidAt },
         config
     );
@@ -150,7 +150,7 @@ export const listMyOrders = () => async(dispatch, getState) => {
         }
     }
     const {data} = await axios.get(
-        `http://localhost:8000/api/orders/myorders/`,
+        `/api/orders/myorders/`,
         config
     );
 

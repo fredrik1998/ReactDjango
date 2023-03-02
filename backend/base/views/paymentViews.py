@@ -25,4 +25,5 @@ def create_payment(request):
     )
     client_secret = payment_intent.client_secret
     return Response(status=status.HTTP_200_OK, data={'client_secret': client_secret})
+    
 

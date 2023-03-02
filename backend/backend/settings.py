@@ -29,7 +29,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -115,7 +115,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-    os.path.join(BASE_DIR, 'frontend/dist')
+         os.path.join(BASE_DIR, 'frontend/dist'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -184,12 +184,13 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/assets/'
 MEDIA_URL = '/src/images/'
 
 
 STATICFILES_DIRS = [
-    BASE_DIR / "frontend/dist",
+    BASE_DIR / 'static',
+    BASE_DIR / 'frontend/dist/assets'
 ]
 
 

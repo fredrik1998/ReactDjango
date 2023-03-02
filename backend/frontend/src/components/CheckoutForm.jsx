@@ -87,6 +87,7 @@ const CheckoutForm = ({ orderId, totalPrice}) => {
       confirmParams: {
         return_url: `${window.location.origin}/success`
       },
+      redirect: 'if_required'
       
     });
    
@@ -96,7 +97,7 @@ const CheckoutForm = ({ orderId, totalPrice}) => {
     } else if (paymentIntent.status === 'succeeded') {
       setSucceeded(true);
       setProcessing(false);
-      navigate('/success');
+      navigate('/success')
     }
   };
   

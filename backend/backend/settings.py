@@ -185,11 +185,13 @@ USE_TZ = False
 STATIC_URL = '/assets/'
 MEDIA_URL = '/src/images/'
 
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 STATICFILES_DIRS = [
-    BASE_DIR / 'static',
-    BASE_DIR / 'frontend/dist/assets'
+    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'frontend', 'dist')
 ]
+
 
 
 

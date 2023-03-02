@@ -32,7 +32,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
-HOST = '0.0.0.0'
+
 
 
 # Application definition
@@ -191,7 +191,7 @@ MEDIA_URL = '/src/images/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
-    os.path.join(BASE_DIR, 'frontend', 'dist', 'assets')
+    os.path.join(BASE_DIR, 'frontend/dist'),
 ]
 
 

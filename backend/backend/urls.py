@@ -24,6 +24,22 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', TemplateView.as_view(template_name='index.html')),
     path('api/products/', include('base.urls.productUrls')),
+    path('login', TemplateView.as_view(template_name='index.html')),
+    path('register', TemplateView.as_view(template_name='index.html')),
+    path('profile', TemplateView.as_view(template_name='index.html')),
+    path('shipping', TemplateView.as_view(template_name='index.html')),
+    path('success', TemplateView.as_view(template_name='index.html')),
+    path('payment', TemplateView.as_view(template_name='index.html')),
+    path('placeorder', TemplateView.as_view(template_name='index.html')),
+    path('order/<str:pk>', TemplateView.as_view(template_name='index.html')),
+    path('product/<str:pk>', TemplateView.as_view(template_name='index.html')),
+    path('cart/<str:pk>', TemplateView.as_view(template_name='index.html')),
+    path('cart', TemplateView.as_view(template_name='index.html')),
+    path('admin/userlist', TemplateView.as_view(template_name='index.html')),
+    path('admin/user/<str:pk>/edit', TemplateView.as_view(template_name='index.html')),
+    path('admin/productlist', TemplateView.as_view(template_name='index.html')),
+    path('admin/product/<str:pk>/edit', TemplateView.as_view(template_name='index.html')),
+    path('admin/orderlist', TemplateView.as_view(template_name='index.html')),
     path('api/users/', include('base.urls.userUrls')),
     path('api/orders/', include('base.urls.orderUrls')),
     path('api/payments/', include('base.urls.paymentUrls'))
@@ -32,4 +48,6 @@ urlpatterns = [
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    
     

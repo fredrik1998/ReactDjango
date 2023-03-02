@@ -31,8 +31,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
-
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -117,6 +116,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
          os.path.join(BASE_DIR, 'frontend/dist'),
+    
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -188,10 +188,10 @@ USE_TZ = False
 STATIC_URL = '/assets/'
 MEDIA_URL = '/src/images/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-    os.path.join(BASE_DIR, 'frontend/dist'),
+    BASE_DIR / 'static',
+    BASE_DIR / 'frontend/dist/assets'
 ]
 
 

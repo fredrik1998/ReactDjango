@@ -86,9 +86,7 @@ const CheckoutForm = ({ orderId, totalPrice}) => {
       elements,
       confirmParams: {
         return_url: `${window.location.origin}/success`
-      },
-      redirect: 'if_required'
-      
+      },   
     });
    
     if (error) {

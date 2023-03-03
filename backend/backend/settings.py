@@ -31,7 +31,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['reactdjango-production.up.railway.app', '127.0.0:1']
+ALLOWED_HOSTS = ['reactdjango-production.up.railway.app', 'localhost']
 
 
 # Application definition
@@ -142,7 +142,7 @@ DATABASES = {
         'NAME': 'Dartshop',
         'USER': 'postgres',
         'PASSWORD': 'Linnea94',
-        'HOST': 'localhost',
+        'HOST': 'postgresql://postgres:DVHBCIcdu67kcgDFXfGT@containers-us-west-178.railway.app:7896/railway',
         'PORT': '5432',
 
 

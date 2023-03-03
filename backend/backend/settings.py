@@ -142,7 +142,7 @@ DATABASES = {
         'NAME': 'Dartshop',
         'USER': 'postgres',
         'PASSWORD': 'Linnea94',
-        'HOST': 'postgresql://postgres:DVHBCIcdu67kcgDFXfGT@containers-us-west-178.railway.app:7896/railway',
+        'HOST': 'containers-us-west-178.railway.app',
         'PORT': '5432',
 
 

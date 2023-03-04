@@ -1,7 +1,7 @@
 # ReactDjango
 
 ## Project Description
-This is an Ecommerce site (non commercial) for darts.
+This is an Ecommerce site (non commercial).
 [Watch it live here:](https://reactdjango-production.up.railway.app/)
 
 

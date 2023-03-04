@@ -7,11 +7,11 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Form, Button } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import Image from 'react-bootstrap/Image'
+import logo from '../assets/yolo.png'
 import {logout} from '../actions/userActions';
 import NavbarToggle from './NavbarToggle';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-
 
 const StyledFormControl = styled(Form.Control)`
  border-radius: 18px;
@@ -47,6 +47,7 @@ const Header = ({ updateSearchTerm }) => {
         <LinkContainer to='/'>
         <Navbar.Brand>
           <Image
+          src={logo}
           style={{color: '#fff'}}
           width="30"
           fluid={true}
@@ -54,7 +55,7 @@ const Header = ({ updateSearchTerm }) => {
           className="d-inline-block align-top"
           id='image'
           alt="Darts logo"
-          />DartShop</Navbar.Brand>
+          />TechShop</Navbar.Brand>
         </LinkContainer>
         <NavbarToggle/>
         <Navbar.Collapse  id="basic-navbar-nav">

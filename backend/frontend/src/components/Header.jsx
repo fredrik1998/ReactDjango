@@ -6,7 +6,6 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Form, Button } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
-import logo from '../images/darts.svg'
 import Image from 'react-bootstrap/Image'
 import {logout} from '../actions/userActions';
 import NavbarToggle from './NavbarToggle';
@@ -48,7 +47,6 @@ const Header = ({ updateSearchTerm }) => {
         <LinkContainer to='/'>
         <Navbar.Brand>
           <Image
-          src={logo}
           style={{color: '#fff'}}
           width="30"
           fluid={true}

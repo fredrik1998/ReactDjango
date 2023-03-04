@@ -6,7 +6,7 @@ import { displayProducts } from "../actions/productActions";
 import Loader from "../components/Loader";
 import Message from "../components/message";
 import Header from "../components/Header";
-import { FilterByPrice, FilterByCategory, FilterByBrand, FilterByRating} from "../components/Filter";
+import { FilterByPrice, FilterByBrand, FilterByRating} from "../components/Filter";
 import styled from 'styled-components'
 
 const StyledDiv = styled.div`
@@ -59,16 +59,19 @@ const HomeScreen = () => {
         case "highest_rating":
           filteredProducts = filteredProducts.sort((a, b) => b.rating - a.rating);
           break;
-        case "Winmau":
+        case "Apple":
           filteredProducts = filterByBrand(filteredProducts, selectedFilter);
           break;
-        case "Unicorn":
+        case "Sony":
           filteredProducts = filterByBrand(filteredProducts, selectedFilter);
           break;
-        case "Darts":
+        case "Logitech":
           filteredProducts = filterByCategory(filteredProducts, selectedFilter);
           break;
-        case "Dartboard":
+        case "Amazon":
+          filteredProducts = filterByCategory(filteredProducts, selectedFilter);
+          break;
+        case "Canon":
           filteredProducts = filterByCategory(filteredProducts, selectedFilter);
           break;
         default:
@@ -84,10 +87,6 @@ return (
           <StyledDiv>
             <FilterByPrice
               selectedFilter={selectedFilter}
-              setSelectedFilter={setSelectedFilter}
-            />
-            <FilterByCategory
-              products={filteredProducts}
               setSelectedFilter={setSelectedFilter}
             />
             <FilterByBrand

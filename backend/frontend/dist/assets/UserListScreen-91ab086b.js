@@ -1,9 +1,0 @@
-import{s as r,a as p,b as g,c as l,r as y,an as x,j as e,d as a,H as L,w as k,M as v,_ as D,B as U,ao as j}from"./index-03493f3e.js";import{L as w}from"./layout-2b96dcdd.js";import{T as A}from"./Table-db3ea8fb.js";const B=r.div`
-background-color:#1a1a1a;
-`,C=r.h1`
-display: flex;
-justify-content: center;
-text-align: center;
-color: #FFF;`,c=r(U)`
-border-radius: 18px;
-`,F=()=>{const t=p(),n=g(),m=l(s=>s.userList),{loading:h,error:i,users:u}=m,f=l(s=>s.userLogin),{userInfo:d}=f,b=l(s=>s.userDelete),{success:N}=b;y.useEffect(()=>{d&&d.isAdmin?t(x()):n("/login")},[t,n,N]);const o=s=>{window.confirm("Are you sure you want to delete this user?")&&t(j(s))};return e(B,{children:a(w,{children:[e(L,{}),e(C,{children:"Users"}),h?e(k,{}):i?e(v,{variant:"danger",children:i}):a(A,{striped:!0,responsive:!0,bordered:!0,hover:!0,className:"table-sm",children:[e("thead",{children:a("tr",{children:[e("th",{className:"tablecell",children:"ID"}),e("th",{className:"tablecell",children:"Name"}),e("th",{className:"tablecell",children:"Email"}),e("th",{className:"tablecell",children:"Admin"}),e("th",{})]})}),e("tbody",{children:u.map(s=>a("tr",{children:[e("td",{className:"tablecell",children:s.id}),e("td",{className:"tablecell",children:s.name}),e("td",{className:"tablecell",children:s.email}),e("td",{children:s.isAdmin?e("i",{className:"fas fa-check",style:{color:"green"}}):e("i",{className:"fas fa-x",style:{color:"red"}})}),e("td",{children:a("div",{className:"d-flex align-items-center",children:[e(D.LinkContainer,{to:`/admin/user/${s.id}`,children:e(c,{className:"btn",children:e("i",{className:"fas fa-edit"})})}),e(c,{onClick:()=>o(s.id),className:"btn ml-2 d-none d-md-block",children:e("i",{className:"fas fa-trash"})}),e(c,{onClick:()=>o(s.id),className:"btn d-block d-md-none",children:"Delete"})]})})]},s.id))})]})]})})};export{F as default};

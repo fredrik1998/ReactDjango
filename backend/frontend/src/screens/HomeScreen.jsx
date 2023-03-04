@@ -6,7 +6,7 @@ import { displayProducts } from "../actions/productActions";
 import Loader from "../components/Loader";
 import Message from "../components/message";
 import Header from "../components/Header";
-import { FilterByPrice, FilterByBrand, FilterByRating} from "../components/Filter";
+import { FilterByPrice, FilterByRating} from "../components/Filter";
 import styled from 'styled-components'
 
 const StyledDiv = styled.div`
@@ -18,7 +18,6 @@ const HomeScreen = () => {
   const { error, loading, products } = productList;
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedFilter, setSelectedFilter] = useState("");
-  const [isFirstVisit, setIsFirstVisit] = useState(true);
  
   useEffect(() => {
     dispatch(displayProducts(searchTerm));
@@ -59,21 +58,6 @@ const HomeScreen = () => {
         case "highest_rating":
           filteredProducts = filteredProducts.sort((a, b) => b.rating - a.rating);
           break;
-        case "Apple":
-          filteredProducts = filterByBrand(filteredProducts, selectedFilter);
-          break;
-        case "Sony":
-          filteredProducts = filterByBrand(filteredProducts, selectedFilter);
-          break;
-        case "Logitech":
-          filteredProducts = filterByCategory(filteredProducts, selectedFilter);
-          break;
-        case "Amazon":
-          filteredProducts = filterByCategory(filteredProducts, selectedFilter);
-          break;
-        case "Canon":
-          filteredProducts = filterByCategory(filteredProducts, selectedFilter);
-          break;
         default:
           break;
       }
@@ -87,10 +71,6 @@ return (
           <StyledDiv>
             <FilterByPrice
               selectedFilter={selectedFilter}
-              setSelectedFilter={setSelectedFilter}
-            />
-            <FilterByBrand
-              products={filteredProducts}
               setSelectedFilter={setSelectedFilter}
             />
             <FilterByRating

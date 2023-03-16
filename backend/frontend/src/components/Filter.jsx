@@ -59,15 +59,15 @@ export const FilterByRating = ({setSelectedFilter}) => {
 
 
   export const FilterByBrand = ({setSelectedFilter }) => {
-    const [selectedCategory, setSelectedCategory] = useState("");
+    const [selectedBrand, setSelectedBrand] = useState("");
     return (
       <StyledNavDropdown title="Brand">
           <NavDropdown.Item
             onClick={() => {
               setSelectedFilter("Sony");
-              setSelectedCategory("Sony");
+              setSelectedBrand("Sony");
             }}
-            disabled={selectedCategory === "Sony"}
+            disabled={selectedBrand === "Sony"}
           >
             Sony
           </NavDropdown.Item>
@@ -75,36 +75,36 @@ export const FilterByRating = ({setSelectedFilter}) => {
            
             onClick={() => {
               setSelectedFilter("Apple");
-              setSelectedCategory("Apple");
+              setSelectedBrand("Apple");
             }}
-            disabled={selectedCategory === "Apple"}
+            disabled={selectedBrand === "Apple"}
           >
             Apple
           </NavDropdown.Item>
           <NavDropdown.Item
             onClick={() => {
               setSelectedFilter("Logitech");
-              setSelectedCategory("Logitech");
+              setSelectedBrand("Logitech");
             }}
-            disabled={selectedCategory === "Logitech"}
+            disabled={selectedBrand === "Logitech"}
           >
             Logitech
           </NavDropdown.Item>
           <NavDropdown.Item
             onClick={() => {
               setSelectedFilter("Amazon");
-              setSelectedCategory("Amazon");
+              setSelectedBrand("Amazon");
             }}
-            disabled={selectedCategory === "Amazon"}
+            disabled={selectedBrand === "Amazon"}
           >
             Amazon
           </NavDropdown.Item>
           <NavDropdown.Item
             onClick={() => {
               setSelectedFilter("Canon");
-              setSelectedCategory("Canon");
+              setSelectedBrand("Canon");
             }}
-            disabled={selectedCategory === "Canon"}
+            disabled={selectedBrand === "Canon"}
           >
             Canon
           </NavDropdown.Item>
@@ -113,9 +113,9 @@ export const FilterByRating = ({setSelectedFilter}) => {
           key="remove-filter"
           onClick={() => {
             setSelectedFilter("");
-            setSelectedCategory("");
+            setSelectedBrand("");
           }}
-          disabled={selectedCategory === ""}
+          disabled={selectedBrand === ""}
         >
           Remove filter
         </NavDropdown.Item>
@@ -123,7 +123,6 @@ export const FilterByRating = ({setSelectedFilter}) => {
     );
   }
   
-
   
 
   

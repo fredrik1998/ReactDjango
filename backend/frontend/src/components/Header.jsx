@@ -54,7 +54,7 @@ const Header = ({ updateSearchTerm }) => {
           height="30"
           className="d-inline-block align-top"
           id='image'
-          alt="Darts logo"
+          alt="Tech logo"
           />TechShop</Navbar.Brand>
         </LinkContainer>
         <NavbarToggle/>

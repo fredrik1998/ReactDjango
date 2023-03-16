@@ -6,7 +6,7 @@ import { displayProducts } from "../actions/productActions";
 import Loader from "../components/Loader";
 import Message from "../components/message";
 import Header from "../components/Header";
-import { FilterByPrice, FilterByRating} from "../components/Filter";
+import { FilterByPrice, FilterByRating, FilterByBrand} from "../components/Filter";
 import styled from 'styled-components'
 
 const StyledDiv = styled.div`
@@ -18,22 +18,36 @@ const HomeScreen = () => {
   const { error, loading, products } = productList;
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedFilter, setSelectedFilter] = useState("");
- 
+  const [searchResults, setSearchResults] = useState([]);
+  
+  // Dispatch the `displayProducts` action whenever the search term changes
   useEffect(() => {
     dispatch(displayProducts(searchTerm));
   }, [searchTerm, dispatch]);
-
+  
+  // Update the `searchResults` state whenever the `products` array changes
+  useEffect(() => {
+    setSearchResults(getSearchResults());
+  }, [products]);
+  
+  // Filter the `products` array based on the `searchTerm` state
+  const getSearchResults = () => {
+    return products.filter((product) =>
+      product.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }
+  
   const updateSearchTerm = (newSearchTerm) => {
     setSearchTerm(newSearchTerm);
   };
+  
+  const searchMessage = searchTerm.length > 0 && searchResults.length > 0 ? `Found ${searchResults.length} amount of results for "${searchTerm}"` : null;
+  
 
-  const filterByBrand = (products, brand) => {
-    return products.filter(product => product.brand === brand);
-  };
+const filterByBrand = (products, brand) => {
+  return products.filter(product => product.brand === brand);
+};
 
-  const filterByCategory = (products, category) => {
-    return products.filter(product => product.category === category);
-  };
 
   let filteredProducts =
   searchTerm === ""
@@ -43,7 +57,6 @@ const HomeScreen = () => {
           .toLowerCase()
           .includes(searchTerm.toLowerCase());
       });
-
 
       switch (selectedFilter) {
         case "lowest_price":
@@ -58,6 +71,20 @@ const HomeScreen = () => {
         case "highest_rating":
           filteredProducts = filteredProducts.sort((a, b) => b.rating - a.rating);
           break;
+        case "Apple":
+          filteredProducts = filterByBrand(products, "Apple");
+          break
+        case "Logitech":
+          filteredProducts = filterByBrand(products, "Logitech");
+          break
+        case "Sony":
+          filteredProducts = filterByBrand(products, "Sony");
+          break
+        case "Canon":
+          filteredProducts = filterByBrand(products, "Cannon");
+        case "Amazon":
+          filteredProducts = filterByBrand(products, "Amazon"); 
+          break    
         default:
           break;
       }
@@ -65,6 +92,7 @@ const HomeScreen = () => {
 return (
   <div>
     <Header updateSearchTerm={updateSearchTerm} />
+    {!loading && searchMessage && <h4 style={{color: '#fff'}}>{searchMessage}</h4>}
     {searchTerm.length === 0 && (
         <>
           <h4 style={{ color: "#FFF" }}>Filters</h4>
@@ -76,6 +104,10 @@ return (
             <FilterByRating
             selectedFilter={selectedFilter}
             setSelectedFilter={setSelectedFilter}
+            />
+            <FilterByBrand
+              selectedBrand ={selectedFilter}
+              setSelectedFilter={setSelectedFilter}
             />
           </StyledDiv>
         </>
@@ -93,8 +125,7 @@ return (
         <Message variant="danger">{error}</Message>
       ) : filteredProducts.length === 0 ? (
         <Message variant="danger">No results found</Message>
-      ) : (
-
+      ) : ( 
         <Row>
           {filteredProducts.map((product) => (
             <Col key={product.id} sm={12} md={6} lg={4} xl={3}>

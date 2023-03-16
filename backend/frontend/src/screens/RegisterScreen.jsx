@@ -118,7 +118,7 @@ useEffect(()=> {
         </Form.Group>
 
     <Form.Group controlId='email'>
-            <Form.Label>Email Adress</Form.Label>
+            <Form.Label>Email Address</Form.Label>
             <Form.Control 
             type='email'
             placeholder='Enter email'
@@ -159,9 +159,7 @@ useEffect(()=> {
         <Col>
         Already have an account? <StyledLink to={redirect ? `/login?redirect=${redirect}` : '/login'}>Sign in</StyledLink>
         </Col>
-
     </Row>   
-
     </Form>
     </FormContainer>
     </Layout>

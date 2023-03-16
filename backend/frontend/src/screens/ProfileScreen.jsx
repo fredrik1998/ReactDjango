@@ -121,9 +121,9 @@ const ProfileScreen = () => {
                 setName(user.name);
                 setEmail(user.email);
             }
-
         }
     }, [user, success, navigate, dispatch, userInfo]);
+
 
     const submitHandler = (e) => {
       e.preventDefault();
@@ -170,7 +170,7 @@ const ProfileScreen = () => {
     <Layout>
         <Header/>
     <Row>
-    <Col md={{ span: 3, offset: 2 }}>
+    <Col md={{ span: 6, offset: 2 }}>
             <StyledH2>User Profile</StyledH2>
 
             {message && <Message variant='success'>{message}</Message>}
@@ -191,7 +191,7 @@ const ProfileScreen = () => {
         </Form.Group>
 
     <Form.Group controlId='email'>
-            <Form.Label>Email Adress</Form.Label>
+            <Form.Label>Email Address</Form.Label>
             <Form.Control 
             type='email'
             placeholder='Enter email'

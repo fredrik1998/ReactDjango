@@ -81,7 +81,8 @@ const filterByBrand = (products, brand) => {
           filteredProducts = filterByBrand(products, "Sony");
           break
         case "Canon":
-          filteredProducts = filterByBrand(products, "Cannon");
+          filteredProducts = filterByBrand(products, "Canon");
+          break
         case "Amazon":
           filteredProducts = filterByBrand(products, "Amazon"); 
           break    

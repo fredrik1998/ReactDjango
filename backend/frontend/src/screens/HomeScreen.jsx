@@ -19,18 +19,17 @@ const HomeScreen = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedFilter, setSelectedFilter] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  
-  // Dispatch the `displayProducts` action whenever the search term changes
+ 
   useEffect(() => {
     dispatch(displayProducts(searchTerm));
   }, [searchTerm, dispatch]);
   
-  // Update the `searchResults` state whenever the `products` array changes
+  
   useEffect(() => {
     setSearchResults(getSearchResults());
   }, [products]);
   
-  // Filter the `products` array based on the `searchTerm` state
+
   const getSearchResults = () => {
     return products.filter((product) =>
       product.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -41,7 +40,7 @@ const HomeScreen = () => {
     setSearchTerm(newSearchTerm);
   };
   
-  const searchMessage = searchTerm.length > 0 && searchResults.length > 0 ? `Found ${searchResults.length} amount of results for "${searchTerm}"` : null;
+  const searchMessage = searchTerm.length > 0 && searchResults.length > 0 ? `Found ${searchResults.length} results for "${searchTerm}"` : null;
   
 
 const filterByBrand = (products, brand) => {
